@@ -146,15 +146,22 @@ export default function EditPostingan({ item, onClose, onSave }) {
                             <label className="block font-semibold text-lg mb-1 text-gray-700">Kategori</label>
                             <div className="flex items-center border rounded-lg px-4 py-2 bg-white shadow-sm">
                                 <MdCategory className="text-2xl text-gray-400 mr-3" />
-                                <input
-                                    type="text"
+                                <select
                                     name="Kategori"
                                     value={formData.Kategori}
                                     onChange={handleChange}
-                                    className="w-full text-lg focus:outline-none"
-                                    placeholder="Masukkan kategori"
+                                    className="w-full text-lg focus:outline-none bg-white"
                                     required
-                                />
+                                >
+                                    <option value="" disabled>Pilih kategori</option>
+                                    <option value="umum">Umum</option>
+                                    <option value="olahraga">Olahraga</option>
+                                    <option value="otomotif">Otomotif</option>
+                                    <option value="sosial budaya">Sosial Budaya</option>
+                                    <option value="politik">Politik</option>
+                                    <option value="ekonomi">Ekonomi</option>
+                                    <option value="teknologi">Teknologi</option>
+                                </select>
                             </div>
                         </div>
                     </div>

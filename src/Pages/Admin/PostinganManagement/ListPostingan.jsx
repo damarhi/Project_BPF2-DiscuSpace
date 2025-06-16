@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import { FiEdit, FiTrash2, FiSearch, FiEye } from "react-icons/fi";
+import { FiEdit, FiTrash2, FiSearch, FiEye, FiHeart, FiMessageSquare, FiShare2 } from "react-icons/fi";
 import { postinganAPI } from "../../../Services/postinganAPI";
 import { userAPI } from "../../../Services/userAPI";
 import Header from "../../../components/admin/Header";
@@ -11,6 +11,9 @@ import LoadingSpinner from "../../../components/LoadingSpinner";
 import EmptyState from "../../../components/EmptyState";
 import EditPostingan from "./EditPostingan";
 import { motion, AnimatePresence } from "framer-motion";
+import { komentarAPI } from "../../../Services/komentarAPI";
+import { likeAPI } from "../../../Services/likeAPI";
+import { dibagikanAPI } from "../../../Services/dibagikanAPI";
 
 export default function ListPostingan() {
     const [postingan, setPostingan] = useState([]);
@@ -30,14 +33,31 @@ export default function ListPostingan() {
         try {
             setLoading(true);
             setError("");
-            const [postinganData, usersData] = await Promise.all([
+
+            const [postinganData, usersData, komentarData, likeData, dibagikanData] = await Promise.all([
                 postinganAPI.fetchPostingan(),
                 userAPI.fetchUser(),
+                komentarAPI.fetchKomentar(),
+                likeAPI.fetchLike(),
+                dibagikanAPI.fetchDibagikan(),
             ]);
-            const mergedData = postinganData.map((post) => ({
-                ...post,
-                user: usersData.find((u) => u.id_user === post.id_user) || {},
-            }));
+
+            const mergedData = postinganData
+                .sort((a, b) => a.id_postingan - b.id_postingan)
+                .map((post) => {
+                    const komentarCount = komentarData.filter((k) => k.id_postingan === post.id_postingan).length;
+                    const likeCount = likeData.filter((l) => l.id_postingan === post.id_postingan).length;
+                    const shareCount = dibagikanData.filter((d) => d.id_postingan === post.id_postingan).length;
+
+                    return {
+                        ...post,
+                        user: usersData.find((u) => u.id_user === post.id_user) || {},
+                        komentar: komentarCount,
+                        like: likeCount,
+                        share: shareCount,
+                    };
+                });
+
             setPostingan(mergedData);
         } catch (err) {
             setError("Gagal memuat data postingan.");
@@ -118,20 +138,37 @@ export default function ListPostingan() {
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -20 }}
                                         transition={{ duration: 0.3 }}
-                                        className="flex flex-col items-start space-y-4 mt-4" // <== Tambahkan mt-4 di sini
+                                        className="flex flex-col items-start space-y-4 mt-4"
                                     >
-                                        <h3 className="text-xl font-bold text-gray-800">
-                                            {selectedPostingan.judul}
-                                        </h3>
+                                        <h3 className="text-xl font-bold text-gray-800">{selectedPostingan.judul}</h3>
                                         {selectedPostingan.gambar && (
                                             <img
                                                 src={selectedPostingan.gambar}
                                                 alt="Gambar Postingan"
-                                                className="w-full h-48 object-cover rounded-lg"
+                                                className="max-h-[300px] w-auto object-contain rounded-lg self-center"
                                             />
                                         )}
+                                        {/* Ikon Like, Komentar, Share */}
+                                        <div className="flex space-x-6 mt-2 text-gray-600">
+                                            <div className="flex items-center space-x-1">
+                                                <FiHeart className="w-5 h-5" />
+                                                <span>{selectedPostingan.like || 0}</span>
+                                            </div>
+                                            <div className="flex items-center space-x-1">
+                                                <FiMessageSquare className="w-5 h-5" />
+                                                <span>{selectedPostingan.komentar || 0}</span>
+                                            </div>
+                                            <div className="flex items-center space-x-1">
+                                                <FiShare2 className="w-5 h-5" />
+                                                <span>{selectedPostingan.share || 0}</span>
+                                            </div>
+                                        </div>
 
-                                        <p className="text-gray-600">{selectedPostingan.deskripsi}</p>
+                                        <div className="text-gray-600 text-justify whitespace-pre-line">
+                                            {selectedPostingan.deskripsi}
+                                        </div>
+
+
                                     </motion.div>
                                 ) : (
                                     <motion.div
@@ -139,7 +176,7 @@ export default function ListPostingan() {
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
                                         exit={{ opacity: 0 }}
-                                        className="mt-4" // <== Agar teks EmptyState juga punya jarak
+                                        className="mt-4"
                                     >
                                         <EmptyState text="Pilih postingan untuk melihat detail." />
                                     </motion.div>
@@ -147,6 +184,7 @@ export default function ListPostingan() {
                             </AnimatePresence>
                         </div>
                     </div>
+
 
 
 
