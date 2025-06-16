@@ -9,7 +9,7 @@ export default function EditPostingan({ item, onClose, onSave }) {
         judul: "",
         deskripsi: "",
         Kategori: "",
-        thumbnail: "", // jika ingin gunakan thumbnail
+        gambar: "",
     });
 
     const [previewImage, setPreviewImage] = useState("");
@@ -20,9 +20,9 @@ export default function EditPostingan({ item, onClose, onSave }) {
                 judul: item.judul || "",
                 deskripsi: item.deskripsi || "",
                 Kategori: item.Kategori || "",
-                thumbnail: item.thumbnail || "", // jika ada gambar
+                gambar: item.gambar || "",
             });
-            setPreviewImage(item.thumbnail || "");
+            setPreviewImage(item.gambar || "");
         }
     }, [item]);
 
@@ -42,7 +42,7 @@ export default function EditPostingan({ item, onClose, onSave }) {
                 setPreviewImage(reader.result);
                 setFormData((prev) => ({
                     ...prev,
-                    thumbnail: reader.result,
+                    gambar: reader.result,
                 }));
             };
             reader.readAsDataURL(file);
@@ -62,7 +62,8 @@ export default function EditPostingan({ item, onClose, onSave }) {
 
     return (
         <dialog id="modal_edit_postingan" className="modal" open>
-            <div className="modal-box w-11/12 max-w-4xl relative">
+            <div className="modal-box w-[95%] max-w-6xl relative">
+                {/* Tombol Close */}
                 <button
                     onClick={onClose}
                     className="absolute right-4 top-4 text-gray-500 hover:text-red-600 text-3xl"
@@ -70,36 +71,49 @@ export default function EditPostingan({ item, onClose, onSave }) {
                     <IoClose />
                 </button>
 
+                {/* Judul */}
                 <h3 className="font-bold text-3xl mb-8 text-center text-gray-800">
                     Edit Data Postingan
                 </h3>
 
-                <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                    {/* Gambar Thumbnail */}
-                    <div>
-                        <div className="flex flex-col items-center gap-4">
-                            <label className="block font-semibold text-lg text-gray-700">
-                                Thumbnail
-                            </label>
+                {/* Form */}
+                <form
+                    onSubmit={handleSubmit}
+                    className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start"
+                >
+                    {/* Kolom Thumbnail */}
+                    <div className="col-span-2 flex flex-col items-center gap-4">
+                        <label className="block font-semibold text-lg text-gray-700">
+                            Thumbnail
+                        </label>
+                        {previewImage ? (
                             <img
-                                src={previewImage || "https://via.placeholder.com/300x200?text=No+Image"}
+                                src={previewImage}
                                 alt="Preview"
-                                className="w-full max-w-xs rounded-md object-cover border-2 border-gray-300 shadow-md cursor-pointer hover:opacity-80 transition"
+                                className="w-full max-w-sm rounded-md object-cover border-2 border-gray-300 shadow-md cursor-pointer hover:opacity-80 transition"
                                 onClick={() => fileInputRef.current.click()}
                             />
-                            <input
-                                type="file"
-                                accept="image/jpeg,image/png"
-                                ref={fileInputRef}
-                                onChange={handleImageChange}
-                                className="hidden"
+                        ) : (
+                            <div
+                                className="w-full max-w-sm h-[200px] rounded-md bg-gray-300 border-2 border-gray-300 shadow-md cursor-pointer hover:opacity-80 transition"
+                                onClick={() => fileInputRef.current.click()}
                             />
-                            <p className="text-sm text-gray-500">Klik gambar untuk memilih thumbnail baru</p>
-                        </div>
+                        )}
+
+                        <input
+                            type="file"
+                            accept="image/jpeg,image/png"
+                            ref={fileInputRef}
+                            onChange={handleImageChange}
+                            className="hidden"
+                        />
+                        <p className="text-sm text-gray-500 text-center">
+                            Klik gambar untuk memilih thumbnail baru
+                        </p>
                     </div>
 
-                    {/* Form Input */}
-                    <div className="space-y-6">
+                    {/* Kolom Form */}
+                    <div className="col-span-3 space-y-6">
                         <div>
                             <label className="block font-semibold text-lg mb-1 text-gray-700">Judul</label>
                             <div className="flex items-center border rounded-lg px-4 py-2 bg-white shadow-sm">
@@ -146,11 +160,18 @@ export default function EditPostingan({ item, onClose, onSave }) {
                     </div>
 
                     {/* Tombol Aksi */}
-                    <div className="col-span-1 md:col-span-2 flex justify-end space-x-4 mt-8">
-                        <button type="button" onClick={onClose} className="btn text-lg px-8 py-3">
+                    <div className="col-span-1 lg:col-span-5 flex justify-end space-x-4 mt-8">
+                        <button
+                            type="button"
+                            onClick={onClose}
+                            className="btn text-lg px-8 py-3"
+                        >
                             Batal
                         </button>
-                        <button type="submit" className="btn btn-primary text-lg px-8 py-3">
+                        <button
+                            type="submit"
+                            className="btn btn-primary text-lg px-8 py-3"
+                        >
                             Simpan
                         </button>
                     </div>

@@ -10,6 +10,7 @@ import Pagination from "../../../components/pagination";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import EmptyState from "../../../components/EmptyState";
 import EditPostingan from "./EditPostingan";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function ListPostingan() {
     const [postingan, setPostingan] = useState([]);
@@ -29,17 +30,14 @@ export default function ListPostingan() {
         try {
             setLoading(true);
             setError("");
-
             const [postinganData, usersData] = await Promise.all([
                 postinganAPI.fetchPostingan(),
-                userAPI.fetchUser()
+                userAPI.fetchUser(),
             ]);
-
-            const mergedData = postinganData.map(post => ({
+            const mergedData = postinganData.map((post) => ({
                 ...post,
-                user: usersData.find(u => u.id_user === post.id_user) || {}
+                user: usersData.find((u) => u.id_user === post.id_user) || {},
             }));
-
             setPostingan(mergedData);
         } catch (err) {
             setError("Gagal memuat data postingan.");
@@ -52,7 +50,6 @@ export default function ListPostingan() {
     const handleDelete = async (id_postingan) => {
         const konfirmasi = confirm("Yakin ingin menghapus postingan ini?");
         if (!konfirmasi) return;
-
         try {
             setLoading(true);
             setError("");
@@ -68,10 +65,11 @@ export default function ListPostingan() {
         }
     };
 
-    const filteredPostingan = postingan.filter(item =>
-        item.judul?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.deskripsi?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.Kategori?.toLowerCase().includes(searchQuery.toLowerCase())
+    const filteredPostingan = postingan.filter(
+        (item) =>
+            item.judul?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            item.deskripsi?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            item.Kategori?.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     const openEditModal = (item) => {
@@ -100,32 +98,64 @@ export default function ListPostingan() {
 
     return (
         <div className="mt-6">
-            <Header brandText="Daftar Postingan" brandLink="/listpostingan" title="Daftar Postingan" onOpenSidenav={onOpenSidenav} />
+            <Header
+                brandText="Daftar Postingan"
+                brandLink="/listpostingan"
+                title="Daftar Postingan"
+                onOpenSidenav={onOpenSidenav}
+            />
             <div className="p-6 bg-[#f4f7fe] min-h-screen">
                 <div className="flex flex-col lg:flex-row gap-6">
                     {/* KIRI - DETAIL POSTINGAN */}
                     <div className="lg:w-1/3 w-full rounded-2xl bg-white p-6 shadow-md min-h-[300px]">
-                        {selectedPostingan ? (
-                            <div className="flex flex-col items-start space-y-4">
-                                {selectedPostingan.gambar && (
-                                    <img
-                                        src={selectedPostingan.gambar}
-                                        alt="Gambar Postingan"
-                                        className="w-full h-48 object-cover rounded-lg"
-                                    />
+                        <h2 className="text-xl font-bold text-gray-800">Preview Postingan</h2>
+                        <div className="relative mb-90">
+                            <AnimatePresence mode="wait">
+                                {selectedPostingan ? (
+                                    <motion.div
+                                        key={selectedPostingan.id_postingan}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -20 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="flex flex-col items-start space-y-4 mt-4" // <== Tambahkan mt-4 di sini
+                                    >
+                                        <h3 className="text-xl font-bold text-gray-800">
+                                            {selectedPostingan.judul}
+                                        </h3>
+                                        {selectedPostingan.gambar && (
+                                            <img
+                                                src={selectedPostingan.gambar}
+                                                alt="Gambar Postingan"
+                                                className="w-full h-48 object-cover rounded-lg"
+                                            />
+                                        )}
+
+                                        <p className="text-gray-600">{selectedPostingan.deskripsi}</p>
+                                    </motion.div>
+                                ) : (
+                                    <motion.div
+                                        key="empty"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        className="mt-4" // <== Agar teks EmptyState juga punya jarak
+                                    >
+                                        <EmptyState text="Pilih postingan untuk melihat detail." />
+                                    </motion.div>
                                 )}
-                                <h3 className="text-xl font-bold text-gray-800">{selectedPostingan.judul}</h3>
-                                <p className="text-gray-600">{selectedPostingan.deskripsi}</p>
-                            </div>
-                        ) : (
-                            <EmptyState text="Pilih postingan untuk melihat detail." />
-                        )}
+                            </AnimatePresence>
+                        </div>
                     </div>
+
+
 
                     {/* KANAN - TABEL POSTINGAN */}
                     <div className="lg:w-2/3 w-full rounded-2xl bg-white p-6 shadow-md overflow-auto">
                         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4 gap-4">
-                            <h2 className="text-xl font-bold text-gray-800">Tabel Postingan</h2>
+                            <h2 className="text-xl font-bold text-gray-800">
+                                Tabel Postingan
+                            </h2>
                             <div className="relative w-72">
                                 <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
                                     <FiSearch />
@@ -159,7 +189,14 @@ export default function ListPostingan() {
                                 itemsPerPage={10}
                                 render={(currentItems, indexOfFirstItem) => (
                                     <GenericTable
-                                        columns={["NO", "PENGGUNA", "JUDUL", "KATEGORI", "TANGGAL POSTING", "AKSI"]}
+                                        columns={[
+                                            "NO",
+                                            "PENGGUNA",
+                                            "JUDUL",
+                                            "KATEGORI",
+                                            "TANGGAL POSTING",
+                                            "AKSI",
+                                        ]}
                                         data={currentItems}
                                         renderRow={(item, index) => [
                                             <td key="no" className="p-4 font-semibold text-left">
@@ -179,7 +216,14 @@ export default function ListPostingan() {
                                                     <span className="text-gray-700 font-semibold">{item.user?.username || "-"}</span>
                                                 </div>
                                             </td>,
-                                            <td key="judul" className="p-4 font-medium text-gray-800 whitespace-nowrap">{item.judul}</td>,
+                                            <td
+                                                key="judul"
+                                                className="p-4 font-medium text-gray-600 hover:underline hover:text-blue-600 cursor-pointer whitespace-nowrap"
+                                                onClick={() => setSelectedPostingan(item)}
+                                                title="Lihat preview"
+                                            >
+                                                {item.judul}
+                                            </td>,
                                             <td key="kategori" className="p-4 text-gray-600 whitespace-nowrap">{item.Kategori || "-"}</td>,
                                             <td key="tanggal" className="p-4 text-gray-600 whitespace-nowrap">
                                                 {new Date(item.created_at).toLocaleDateString("id-ID", {
@@ -190,9 +234,6 @@ export default function ListPostingan() {
                                             </td>,
                                             <td key="aksi" className="p-4 whitespace-nowrap">
                                                 <div className="flex space-x-4 text-gray-500">
-                                                    <button onClick={() => setSelectedPostingan(item)} title="Lihat Detail" className="hover:text-green-600">
-                                                        <FiEye />
-                                                    </button>
                                                     <button onClick={() => openEditModal(item)} title="Edit" className="hover:text-blue-600">
                                                         <FiEdit />
                                                     </button>
@@ -202,6 +243,7 @@ export default function ListPostingan() {
                                                 </div>
                                             </td>
                                         ]}
+
                                     />
                                 )}
                             />
@@ -217,6 +259,6 @@ export default function ListPostingan() {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
