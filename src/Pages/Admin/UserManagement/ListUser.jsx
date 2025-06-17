@@ -129,51 +129,53 @@ export default function ListUser() {
                             data={filteredUsers}
                             itemsPerPage={10}
                             render={(currentUsers, indexOfFirstUser) => (
-                                <GenericTable
-                                    columns={["NO", "NAMA", "EMAIL", "USERNAME", "BIO", "AKSI"]}
-                                    data={currentUsers}
-                                    renderRow={(user, index) => [
-                                        <td key="no" className="p-4 text-left font-semibold">
-                                            {indexOfFirstUser + index + 1}
-                                        </td>,
-                                        <td key="nama" className="p-4 whitespace-nowrap font-medium">
-                                            <div className="flex items-center space-x-3">
-                                                <img
-                                                    src={
-                                                        user.profile?.startsWith("data:image")
-                                                            ? user.profile
-                                                            : `https://ui-avatars.com/api/?name=${encodeURIComponent(user.nama || "Guest")}&background=eee&color=555`
-                                                    }
-                                                    alt={user.nama}
-                                                    className="w-10 h-10 rounded-full object-cover"
-                                                />
-                                                <span className=" text-gray-700 font-semibold">{user.nama}</span>
-                                            </div>
-                                        </td>,
-                                        <td key="email" className="p-4 whitespace-nowrap text-gray-600">{user.email}</td>,
-                                        <td key="username" className="p-4 whitespace-nowrap text-gray-600">{user.username}</td>,
-                                        <td key="bio" className="p-4 whitespace-nowrap text-gray-600">{user.bio || "-"}</td>,
-                                        <td key="aksi" className="p-4 whitespace-nowrap">
-                                            <div className="flex space-x-4 text-gray-500">
-                                                <button
-                                                    onClick={() => openEditModal(user)}
-                                                    className="hover:text-blue-600"
-                                                    title="Edit"
-                                                >
-                                                    <FiEdit />
-                                                </button>
-                                                <button
-                                                    onClick={() => handleDelete(user.id_user)}
-                                                    className="hover:text-red-600"
-                                                    title="Delete"
-                                                    disabled={loading}
-                                                >
-                                                    <FiTrash2 />
-                                                </button>
-                                            </div>
-                                        </td>
-                                    ]}
-                                />
+                                <div className="min-w-[900px] overflow-x-auto">
+                                    <GenericTable className="min-w-[900px]"
+                                        columns={["NO", "NAMA", "EMAIL", "USERNAME", "BIO", "AKSI"]}
+                                        data={currentUsers}
+                                        renderRow={(user, index) => [
+                                            <td key="no" className="p-4 text-left font-semibold">
+                                                {indexOfFirstUser + index + 1}
+                                            </td>,
+                                            <td key="nama" className="p-4 whitespace-nowrap font-medium">
+                                                <div className="flex items-center space-x-3">
+                                                    <img
+                                                        src={
+                                                            user.profile?.startsWith("data:image")
+                                                                ? user.profile
+                                                                : `https://ui-avatars.com/api/?name=${encodeURIComponent(user.nama || "Guest")}&background=eee&color=555`
+                                                        }
+                                                        alt={user.nama}
+                                                        className="w-10 h-10 rounded-full object-cover"
+                                                    />
+                                                    <span className=" text-gray-700 font-semibold">{user.nama}</span>
+                                                </div>
+                                            </td>,
+                                            <td key="email" className="p-4 whitespace-nowrap text-gray-600">{user.email}</td>,
+                                            <td key="username" className="p-4 whitespace-nowrap text-gray-600">{user.username}</td>,
+                                            <td key="bio" className="p-4 whitespace-nowrap text-gray-600">{user.bio || "-"}</td>,
+                                            <td key="aksi" className="p-4 whitespace-nowrap">
+                                                <div className="flex space-x-4 text-gray-500">
+                                                    <button
+                                                        onClick={() => openEditModal(user)}
+                                                        className="hover:text-blue-600"
+                                                        title="Edit"
+                                                    >
+                                                        <FiEdit />
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleDelete(user.id_user)}
+                                                        className="hover:text-red-600"
+                                                        title="Delete"
+                                                        disabled={loading}
+                                                    >
+                                                        <FiTrash2 />
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        ]}
+                                    />
+                                </div>
                             )}
                         />
                     )}
