@@ -62,40 +62,41 @@ export default function EditPostingan({ item, onClose, onSave }) {
 
     return (
         <dialog id="modal_edit_postingan" className="modal" open>
-            <div className="modal-box w-[95%] max-w-6xl relative">
+            <div className="modal-box w-[90vw] max-w-[800px] relative">
                 {/* Tombol Close */}
                 <button
                     onClick={onClose}
-                    className="absolute right-4 top-4 text-gray-500 hover:text-red-600 text-3xl"
+                    className="absolute right-4 top-4 text-gray-500 hover:text-red-600 text-2xl"
+                    aria-label="Close modal"
                 >
                     <IoClose />
                 </button>
 
                 {/* Judul */}
-                <h3 className="font-bold text-3xl mb-8 text-center text-gray-800">
+                <h3 className="font-semibold text-xl mb-6 text-center text-gray-800">
                     Edit Data Postingan
                 </h3>
 
                 {/* Form */}
                 <form
                     onSubmit={handleSubmit}
-                    className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start"
+                    className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start"
                 >
                     {/* Kolom Thumbnail */}
-                    <div className="col-span-2 flex flex-col items-center gap-4">
-                        <label className="block font-semibold text-lg text-gray-700">
+                    <div className="col-span-2 flex flex-col items-center gap-3">
+                        <label className="block font-semibold text-sm text-gray-700">
                             Thumbnail
                         </label>
                         {previewImage ? (
                             <img
                                 src={previewImage}
                                 alt="Preview"
-                                className="w-full max-w-sm rounded-md object-cover border-2 border-gray-300 shadow-md cursor-pointer hover:opacity-80 transition"
+                                className="w-full max-w-xs rounded-md object-cover border border-gray-300 shadow-sm cursor-pointer hover:opacity-80 transition"
                                 onClick={() => fileInputRef.current.click()}
                             />
                         ) : (
                             <div
-                                className="w-full max-w-sm h-[200px] rounded-md bg-gray-300 border-2 border-gray-300 shadow-md cursor-pointer hover:opacity-80 transition"
+                                className="w-full max-w-xs h-40 rounded-md bg-gray-300 border border-gray-300 shadow-sm cursor-pointer hover:opacity-80 transition"
                                 onClick={() => fileInputRef.current.click()}
                             />
                         )}
@@ -107,23 +108,23 @@ export default function EditPostingan({ item, onClose, onSave }) {
                             onChange={handleImageChange}
                             className="hidden"
                         />
-                        <p className="text-sm text-gray-500 text-center">
+                        <p className="text-xs text-gray-500 text-center">
                             Klik gambar untuk memilih thumbnail baru
                         </p>
                     </div>
 
                     {/* Kolom Form */}
-                    <div className="col-span-3 space-y-6">
+                    <div className="col-span-3 space-y-4">
                         <div>
-                            <label className="block font-semibold text-lg mb-1 text-gray-700">Judul</label>
-                            <div className="flex items-center border rounded-lg px-4 py-2 bg-white shadow-sm">
-                                <MdTitle className="text-2xl text-gray-400 mr-3" />
+                            <label className="block font-semibold text-sm mb-1 text-gray-700">Judul</label>
+                            <div className="flex items-center border rounded-md px-3 py-2 bg-white shadow-sm">
+                                <MdTitle className="text-xl text-gray-400 mr-2" />
                                 <input
                                     type="text"
                                     name="judul"
                                     value={formData.judul}
                                     onChange={handleChange}
-                                    className="w-full text-lg focus:outline-none"
+                                    className="w-full text-sm focus:outline-none"
                                     placeholder="Masukkan judul postingan"
                                     required
                                 />
@@ -131,26 +132,26 @@ export default function EditPostingan({ item, onClose, onSave }) {
                         </div>
 
                         <div>
-                            <label className="block font-semibold text-lg mb-1 text-gray-700">Deskripsi</label>
+                            <label className="block font-semibold text-sm mb-1 text-gray-700">Deskripsi</label>
                             <textarea
                                 name="deskripsi"
                                 value={formData.deskripsi}
                                 onChange={handleChange}
-                                className="w-full text-lg p-4 border rounded-lg bg-white shadow-sm focus:outline-none resize-none min-h-[120px]"
+                                className="w-full text-sm p-3 border rounded-md bg-white shadow-sm focus:outline-none resize-none min-h-[100px]"
                                 placeholder="Masukkan deskripsi"
                                 required
                             ></textarea>
                         </div>
 
                         <div>
-                            <label className="block font-semibold text-lg mb-1 text-gray-700">Kategori</label>
-                            <div className="flex items-center border rounded-lg px-4 py-2 bg-white shadow-sm">
-                                <MdCategory className="text-2xl text-gray-400 mr-3" />
+                            <label className="block font-semibold text-sm mb-1 text-gray-700">Kategori</label>
+                            <div className="flex items-center border rounded-md px-3 py-2 bg-white shadow-sm">
+                                <MdCategory className="text-xl text-gray-400 mr-2" />
                                 <select
                                     name="Kategori"
                                     value={formData.Kategori}
                                     onChange={handleChange}
-                                    className="w-full text-lg focus:outline-none bg-white"
+                                    className="w-full text-sm focus:outline-none bg-white"
                                     required
                                 >
                                     <option value="" disabled>Pilih kategori</option>
@@ -167,17 +168,17 @@ export default function EditPostingan({ item, onClose, onSave }) {
                     </div>
 
                     {/* Tombol Aksi */}
-                    <div className="col-span-1 lg:col-span-5 flex justify-end space-x-4 mt-8">
+                    <div className="col-span-1 lg:col-span-5 flex justify-end space-x-3 mt-6">
                         <button
                             type="button"
                             onClick={onClose}
-                            className="btn text-lg px-8 py-3"
+                            className="btn px-6 py-2 text-sm"
                         >
                             Batal
                         </button>
                         <button
                             type="submit"
-                            className="btn btn-primary text-lg px-8 py-3"
+                            className="btn btn-primary px-6 py-2 text-sm"
                         >
                             Simpan
                         </button>

@@ -1,7 +1,7 @@
 export default function GenericTable({ columns, data, renderRow }) {
   return (
     <div className="w-full overflow-x-auto">
-      <table className="min-w-[800px] w-full text-gray-800 bg-white text-base font-semibold">
+      <table className="min-w-[900px] w-full text-gray-800 bg-white text-base font-semibold">
         <thead>
           <tr className=" text-gray-400 uppercase">
             {columns.map((col, idx) => (
