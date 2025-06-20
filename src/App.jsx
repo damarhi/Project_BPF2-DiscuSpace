@@ -4,6 +4,9 @@ import { Routes, Route } from "react-router-dom";
 const Dashboard = React.lazy(() => import("./Pages/Admin/Dashboard"))
 const ListUser = React.lazy(() => import("./Pages/Admin/UserManagement/ListUser"))
 const ListPostingan = React.lazy(() => import("./Pages/Admin/PostinganManagement/ListPostingan"))
+const Komentar = React.lazy(() =>import("./Pages/Admin/LaporanManagement/Komentar"))
+const Postingan = React.lazy(() =>import("./Pages/Admin/LaporanManagement/Postingan"))
+const Pengguna = React.lazy(() =>import("./Pages/Admin/LaporanManagement/Pengguna"))
 const MainLayout = React.lazy(() => import("./Layouts/MainLayout"))
 const Loading = React.lazy(()=> import("./components/Loading")) 
 import "./assets/tailwind.css";
@@ -19,6 +22,9 @@ function App() {
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/listuser" element={<ListUser />} />
                 <Route path="/listpostingan" element={<ListPostingan />} />
+                <Route path="/laporan/user" element={<Pengguna />} />
+                <Route path="/laporan/komentar" element={<Komentar />} />
+                <Route path="/laporan/postingan" element={<Postingan />} />
                 {/* <Route path="/Orders" element={<Orders />} />
                 <Route path="/Customer" element={<Customer />} />
                 <Route path="/ListUser" element={<ListUser />} /> */}

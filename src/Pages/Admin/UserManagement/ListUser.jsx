@@ -30,12 +30,18 @@ export default function ListUser() {
             setError("");
             const data = await userAPI.fetchUser();
             setUsers(data);
+            const nonAdminUsers = data.filter((u) => u.role !== "admin");
+
+            setUsers(nonAdminUsers);
+
         } catch (err) {
             setError("Gagal memuat data pengguna.");
             console.error(err);
         } finally {
             setLoading(false);
         }
+
+
     };
 
     const handleDelete = async (id_user) => {

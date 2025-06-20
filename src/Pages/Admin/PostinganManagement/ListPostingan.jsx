@@ -1,14 +1,6 @@
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import {
-  FiEdit,
-  FiTrash2,
-  FiSearch,
-  FiEye,
-  FiHeart,
-  FiMessageSquare,
-  FiShare2,
-} from "react-icons/fi";
+import { FiEdit, FiTrash2, FiSearch, FiEye, FiHeart, FiMessageSquare, FiShare2, } from "react-icons/fi";
 import { postinganAPI } from "../../../Services/postinganAPI";
 import { userAPI } from "../../../Services/userAPI";
 import Header from "../../../components/admin/Header";
@@ -22,6 +14,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { komentarAPI } from "../../../Services/komentarAPI";
 import { likeAPI } from "../../../Services/likeAPI";
 import { dibagikanAPI } from "../../../Services/dibagikanAPI";
+import Like from "./Like";
+import Komentar from "./komentar";
+import Dibagikan from "./dibagikan";
 
 export default function ListPostingan() {
   const [postingan, setPostingan] = useState([]);
@@ -32,6 +27,13 @@ export default function ListPostingan() {
   const [selectedPostingan, setSelectedPostingan] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const { onOpenSidenav } = useOutletContext();
+  const [showLikeModal, setShowLikeModal] = useState(false);
+  const [showKomentarModal, setShowKomentarModal] = useState(false);
+  const [showDibagikanModal, setDibagikanModal] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
+
+
 
   useEffect(() => {
     loadPostingan();
@@ -93,12 +95,29 @@ export default function ListPostingan() {
     }
   };
 
-  const filteredPostingan = postingan.filter(
-    (item) =>
+  const handleCategoryToggle = (kategori) => {
+    setSelectedCategories((prev) =>
+      prev.includes(kategori)
+        ? prev.filter((k) => k !== kategori)
+        : [...prev, kategori]
+    );
+  };
+
+
+  const filteredPostingan = postingan.filter((item) => {
+    const matchesSearch =
       item.judul?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.deskripsi?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.Kategori?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+      item.Kategori?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.user?.username?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.user?.nama?.toLowerCase().includes(searchQuery.toLowerCase());
+
+    const matchesCategory =
+      selectedCategories.length === 0 || selectedCategories.includes(item.Kategori);
+
+    return matchesSearch && matchesCategory;
+  });
+
 
   const openEditModal = (item) => {
     setSelectedPostingan(item);
@@ -112,7 +131,10 @@ export default function ListPostingan() {
   const handleSavePostingan = async (id_postingan, updatedData) => {
     try {
       setLoading(true);
-      await postinganAPI.updatePostingan(id_postingan, updatedData);
+      await postinganAPI.updatePostingan(id_postingan, {
+        ...updatedData,
+        tanggal_edit: new Date().toISOString(),
+      });
       setSuccess("Postingan berhasil diperbarui.");
       loadPostingan();
       closeEditModal();
@@ -159,16 +181,35 @@ export default function ListPostingan() {
                     ) : null}
                     <div className="flex space-x-4 mt-1 text-gray-600 text-sm">
                       <div className="flex items-center space-x-1">
-                        <FiHeart className="w-4 h-4" />
-                        <span>{selectedPostingan.like || 0}</span>
+                        <button
+                          onClick={() => setShowLikeModal(true)}
+                          title="Lihat detail like"
+                          className="flex items-center space-x-1 hover:text-red-500"
+                        >
+                          <FiHeart className="w-4 h-4" />
+                          <span>{selectedPostingan.like || 0}</span>
+                        </button>
                       </div>
                       <div className="flex items-center space-x-1">
-                        <FiMessageSquare className="w-4 h-4" />
-                        <span>{selectedPostingan.komentar || 0}</span>
+                        <button
+                          onClick={() => setShowKomentarModal(true)}
+                          title="Lihat komentar postingan"
+                          className="flex items-center space-x-1 hover:text-blue-500"
+                        >
+                          <FiMessageSquare className="w-4 h-4" />
+                          <span>{selectedPostingan.komentar || 0}</span>
+                        </button>
                       </div>
+
                       <div className="flex items-center space-x-1">
-                        <FiShare2 className="w-4 h-4" />
-                        <span>{selectedPostingan.share || 0}</span>
+                        <button
+                          onClick={() => setDibagikanModal(true)}
+                          title="Lihat pengguna yang membagikan"
+                          className="flex items-center space-x-1 hover:text-blue-500"
+                        >
+                          <FiShare2 className="w-4 h-4" />
+                          <span>{selectedPostingan.share || 0}</span>
+                        </button>
                       </div>
                     </div>
                     <div className="text-gray-600 text-sm text-justify whitespace-pre-line">
@@ -191,22 +232,50 @@ export default function ListPostingan() {
           </div>
 
           {/* Container kanan */}
-        <div className="w-full lg:w-[70%] rounded-xl bg-white p-4 shadow-sm overflow-auto">
+          <div className="w-full lg:w-[70%] rounded-xl bg-white p-4 shadow-sm overflow-auto">
             <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-3 gap-3">
               <h2 className="text-lg font-semibold text-gray-800">Tabel Postingan</h2>
-              <div className="relative w-60">
-                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
-                  <FiSearch className="w-4 h-4" />
-                </span>
-                <input
-                  type="text"
-                  placeholder="Cari postingan..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-9 pr-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
-                />
+
+              <div className="flex items-center gap-2 ml-auto">
+                {/* Dropdown Filter */}
+                <details className="dropdown">
+                  <summary className="btn btn-sm bg-blue-500 hover:bg-blue-600 text-white border-none text-sm">
+                    Filter Kategori
+                  </summary>
+                  <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-md w-52">
+                    {["ekonomi", "olahraga", "teknologi", "otomotif","politik","sosial budaya", "umum", "pendidikan",
+                    ].map((kategori) => (
+                      <li key={kategori}>
+                        <label className="cursor-pointer label justify-start gap-2">
+                          <input
+                            type="checkbox"
+                            checked={selectedCategories.includes(kategori)}
+                            onChange={() => handleCategoryToggle(kategori)}
+                            className="checkbox checkbox-sm"
+                          />
+                          <span className="label-text capitalize">{kategori}</span>
+                        </label>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+
+                {/* Search Bar */}
+                <div className="relative w-60">
+                  <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
+                    <FiSearch className="w-4 h-4" />
+                  </span>
+                  <input
+                    type="text"
+                    placeholder="Cari postingan..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-9 pr-3 py-1.5 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  />
+                </div>
               </div>
             </div>
+
 
             {error && <AlertBox type="error">{error}</AlertBox>}
             {success && <AlertBox type="success">{success}</AlertBox>}
@@ -223,7 +292,7 @@ export default function ListPostingan() {
                 itemsPerPage={10}
                 render={(currentItems, indexOfFirstItem) => (
                   <GenericTable
-                    columns={["NO", "PENGGUNA", "JUDUL", "KATEGORI", "TANGGAL POSTING", "AKSI"]}
+                    columns={["NO", "PENGGUNA", "JUDUL", "KATEGORI", "TANGGAL POSTING", "TANGGAL Edit", "AKSI"]}
                     data={currentItems}
                     renderRow={(item, index) => [
                       <td key="no" className="p-3 text-sm font-semibold text-left">{indexOfFirstItem + index + 1}</td>,
@@ -255,6 +324,11 @@ export default function ListPostingan() {
                           day: "2-digit", month: "2-digit", year: "2-digit"
                         })}
                       </td>,
+                      <td key="tanggal_edit" className="p-3 text-sm text-gray-600">
+                        {new Date(item.tanggal_edit || item.created_at).toLocaleDateString("id-ID", {
+                          day: "2-digit", month: "2-digit", year: "2-digit"
+                        })}
+                      </td>,
                       <td key="aksi" className="p-3">
                         <div className="flex space-x-3 text-gray-500 text-sm">
                           <button onClick={() => openEditModal(item)} title="Edit" className="hover:text-blue-600">
@@ -278,6 +352,28 @@ export default function ListPostingan() {
                 onSave={handleSavePostingan}
               />
             )}
+
+            <Like
+              open={showLikeModal}
+              onClose={() => setShowLikeModal(false)}
+              judul={selectedPostingan?.judul}
+              id_postingan={selectedPostingan?.id_postingan}
+            />
+
+            <Komentar
+              open={showKomentarModal}
+              onClose={() => setShowKomentarModal(false)}
+              judul={selectedPostingan?.judul}
+              id_postingan={selectedPostingan?.id_postingan}
+            />
+
+            <Dibagikan
+              open={showDibagikanModal}
+              onClose={() => setShowDibagikanModal(false)}
+              id_postingan={selectedPostingan?.id_postingan}
+              judul={selectedPostingan?.judul}
+            />
+
           </div>
         </div>
       </div>
