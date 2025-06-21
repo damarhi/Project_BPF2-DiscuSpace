@@ -16,7 +16,7 @@ import { likeAPI } from "../../../Services/likeAPI";
 import { dibagikanAPI } from "../../../Services/dibagikanAPI";
 import Like from "./Like";
 import Komentar from "./Komentar";
-import Dibagikan from "./dibagikan";
+import Dibagikan from "./Dibagikan";
 
 export default function ListPostingan() {
   const [postingan, setPostingan] = useState([]);
