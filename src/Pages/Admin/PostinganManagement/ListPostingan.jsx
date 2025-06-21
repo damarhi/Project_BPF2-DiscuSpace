@@ -15,7 +15,7 @@ import { komentarAPI } from "../../../Services/komentarAPI";
 import { likeAPI } from "../../../Services/likeAPI";
 import { dibagikanAPI } from "../../../Services/dibagikanAPI";
 import Like from "./Like";
-import Komentar from "./komentar";
+import Komentar from "./Komentar";
 import Dibagikan from "./dibagikan";
 
 export default function ListPostingan() {
