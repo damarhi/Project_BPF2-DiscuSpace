@@ -17,12 +17,13 @@ export default function MainLayout() {
 
         <div
           id="main-content"
-          className="flex flex-1 flex-col p-4 mt-[-30px] xl:ml-64"
+          className="flex-1 flex flex-col xl:ml-64 p-4 mt-[-30px] h-screen overflow-y-auto"
         >
-          {/* Wrap content with max width and center horizontally */}
-          <div className="flex flex-col lg:flex-row gap-4 w-full h-full min-h-0 max-w-screen-xl mx-auto">
+
+          <div >
             <Outlet context={{ onOpenSidenav: toggleSidebar }} />
           </div>
+
         </div>
       </div>
     </div>

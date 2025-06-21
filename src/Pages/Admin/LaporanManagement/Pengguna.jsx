@@ -122,11 +122,11 @@ export default function Pengguna() {
                             <LoadingSpinner text="Memuat data laporan..." />
                         </div>
                     ) : filteredLaporan.length === 0 ? (
-                         <div className="min-w-[900px] overflow-x-auto">
-                        <EmptyState
-                            text="Tidak ada Pengguna yang Dilaporan"
-                           
-                        />
+                        <div className="min-w-[900px] overflow-x-auto">
+                            <EmptyState
+                                text="Tidak ada Pengguna yang Dilaporan"
+
+                            />
                         </div>
                     ) : (
                         <Pagination
@@ -152,8 +152,11 @@ export default function Pengguna() {
                                                             alt="Terlapor"
                                                             className="w-8 h-8 rounded-full object-cover"
                                                         />
-                                                         <div className="font-semibold text-gray-800">{terlapor?.nama} <span className="text-xs text-gray-500 mb-1"> / @{terlapor?.username}</span></div>
-                                                 
+                                                        <div>
+                                                            <div className="font-semibold text-gray-800">{terlapor?.nama}</div>
+                                                            <div className="text-xs text-gray-500">@{terlapor?.username}</div>
+                                                        </div>
+
                                                     </div>
                                                 </td>,
                                                 <td key="jumlah" className="p-3 text-sm ">{item.jumlah}</td>,

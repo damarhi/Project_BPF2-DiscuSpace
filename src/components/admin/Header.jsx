@@ -4,7 +4,8 @@ import PageHeader from "./PageHeader";
 
 export default function Header({ onOpenSidenav, brandText, title }) {
   return (
-    <nav className="sticky top-0 z-40 flex flex-wrap items-center justify-between rounded-xl bg-white/10 p-2 backdrop-blur-xl">
+    <nav className="sticky top-0 z-40 flex flex-wrap items-center justify-between rounded-xl bg-white/10 p-2 shadow-md backdrop-blur-xl">
+
       {/* LEFT */}
       <PageHeader brandText={brandText} title={title} />
 

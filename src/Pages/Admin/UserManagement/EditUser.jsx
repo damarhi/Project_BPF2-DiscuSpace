@@ -12,6 +12,7 @@ export default function EditUser({ user, onClose, onSave }) {
     password: "",
     profile: "",
     bio: "",
+    status: "unblokir",
   });
 
   const [previewImage, setPreviewImage] = useState("");
@@ -25,6 +26,7 @@ export default function EditUser({ user, onClose, onSave }) {
         password: "",
         profile: user.profile || "",
         bio: user.bio || "",
+        status: user.status === "nonaktif" ? "blokir" : "unblokir",
       });
       setPreviewImage(user.profile || "");
     }
@@ -58,7 +60,9 @@ export default function EditUser({ user, onClose, onSave }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (onSave) {
-      onSave(user.id_user, formData);
+      // Konversi status: "blokir" -> "nonaktif", "unblokir" -> "aktif"
+      const statusConverted = formData.status === "blokir" ? "nonaktif" : "aktif";
+      onSave(user.id_user, { ...formData, status: statusConverted });
     }
   };
 
@@ -156,6 +160,20 @@ export default function EditUser({ user, onClose, onSave }) {
                   />
                 </div>
               </div>
+
+              <div>
+                <label className="block font-medium text-sm mb-1 text-gray-700">Status</label>
+                <select
+                  name="status"
+                  value={formData.status}
+                  onChange={handleChange}
+                  className="w-full text-xs px-2 py-2 border rounded bg-white shadow-sm focus:outline-none"
+                >
+                  <option value="unblokir">Unblokir</option>
+                  <option value="blokir">Blokir</option>
+                </select>
+              </div>
+              
             </div>
 
             {/* Container 3: kanan */}
@@ -182,7 +200,7 @@ export default function EditUser({ user, onClose, onSave }) {
                   name="bio"
                   value={formData.bio}
                   onChange={handleChange}
-                  className="w-full text-xs p-2 border rounded bg-white shadow-sm focus:outline-none resize-none min-h-[60px]"
+                  className="w-full text-xs p-2 border rounded bg-white shadow-sm focus:outline-none resize-none min-h-[90px]"
                   placeholder="Masukkan bio pengguna"
                 ></textarea>
               </div>

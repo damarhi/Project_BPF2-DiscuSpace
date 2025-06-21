@@ -7,6 +7,10 @@ const ListPostingan = React.lazy(() => import("./Pages/Admin/PostinganManagement
 const Komentar = React.lazy(() =>import("./Pages/Admin/LaporanManagement/Komentar"))
 const Postingan = React.lazy(() =>import("./Pages/Admin/LaporanManagement/Postingan"))
 const Pengguna = React.lazy(() =>import("./Pages/Admin/LaporanManagement/Pengguna"))
+const Login = React.lazy(()=>import("./Pages/Auth/Login"))
+const Register = React.lazy(()=>import("./Pages/Auth/Register"))
+const Forgot = React.lazy(()=>import("./Pages/Auth/Forgot"))
+const AuthLayout = React.lazy(()=>import("./Layouts/AuthLayout"))
 const MainLayout = React.lazy(() => import("./Layouts/MainLayout"))
 const Loading = React.lazy(()=> import("./components/Loading")) 
 import "./assets/tailwind.css";
@@ -24,18 +28,14 @@ function App() {
                 <Route path="/listpostingan" element={<ListPostingan />} />
                 <Route path="/laporan/user" element={<Pengguna />} />
                 <Route path="/laporan/komentar" element={<Komentar />} />
-                <Route path="/laporan/postingan" element={<Postingan />} />
-                {/* <Route path="/Orders" element={<Orders />} />
-                <Route path="/Customer" element={<Customer />} />
-                <Route path="/ListUser" element={<ListUser />} /> */}
-                
+                <Route path="/laporan/postingan" element={<Postingan />} />              
               </Route>
-              {/* <Route element={<AuthLayout/>}>
+              <Route element={<AuthLayout/>}>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register/>} />
                 <Route path="/forgot" element={<Forgot/>} />
               </Route>
-              <Route element={<GuestLayout/>}>
+              {/* <Route element={<GuestLayout/>}>
                 <Route path="/home" element={<Home />} />               
                 <Route path="/cekproduk" element={<Cekproduk />} />               
               </Route>

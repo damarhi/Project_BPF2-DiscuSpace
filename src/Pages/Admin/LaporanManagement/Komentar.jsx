@@ -105,7 +105,7 @@ export default function Komentar() {
                             render={(currentItems, indexOfFirstItem) => (
                                 <div className="min-w-[900px] overflow-x-auto">
                                     <GenericTable
-                                        columns={["NO", "USERNAME", "KOMENTAR", "JUMLAH LAPORAN", "AKSI"]}
+                                        columns={["NO", "PENGGUNA", "KOMENTAR", "JUMLAH LAPORAN", "AKSI"]}
                                         data={currentItems}
                                         renderRow={(item, index) => {
                                             const kom = komentar.find((k) => k.id_komentar === item.id_komentar);
@@ -125,7 +125,10 @@ export default function Komentar() {
                                                             alt="User Profile"
                                                             className="w-8 h-8 rounded-full object-cover"
                                                         />
-                                                        <span className="text-gray-800 font-medium">@{pemilik?.username || "-"}</span>
+                                                        <div>
+                                                            <div className="font-semibold text-gray-800">{pemilik?.nama}</div>
+                                                            <div className="text-xs text-gray-500">@{pemilik?.username}</div>
+                                                        </div>
                                                     </div>
                                                 </td>,
                                                 <td key="komentar" className="p-3 text-sm text-gray-700 whitespace-pre-wrap">
