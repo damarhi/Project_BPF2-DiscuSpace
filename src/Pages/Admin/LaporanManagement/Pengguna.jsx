@@ -10,7 +10,7 @@ import LoadingSpinner from "../../../components/LoadingSpinner";
 import ModalPengguna from "./ModalPengguna";
 import EmptyState from "../../../components/EmptyState";
 
-export default function ListLaporanUser() {
+export default function Pengguna() {
     const [laporan, setLaporan] = useState([]);
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
