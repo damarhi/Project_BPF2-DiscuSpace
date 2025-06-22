@@ -5,7 +5,7 @@ export default function Landing() {
 
         <div>
            
-          iNI LANDING
+          INI LANDING
 
         </div>
     )
