@@ -25,7 +25,7 @@ function App() {
     <Suspense fallback={<Loading />}>
       <Routes>
 
-        <Route element={<PrivateRoute />}>
+        <Route element={<Privateroute />}>
           <Route element={<MainLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/listuser" element={<ListUser />} />
