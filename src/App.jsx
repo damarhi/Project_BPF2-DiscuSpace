@@ -15,7 +15,7 @@ const AuthLayout = React.lazy(() => import("./Layouts/AuthLayout"))
 const MainLayout = React.lazy(() => import("./Layouts/MainLayout"))
 const LandingLayout = React.lazy(()=>import("./Layouts/LandingLayout"))
 const Loading = React.lazy(() => import("./components/Loading"))
-import PrivateRoute from "./components/Privateroute";
+import Privateroute from "./components/Privateroute";
 import "./assets/tailwind.css";
 
 function App() {
