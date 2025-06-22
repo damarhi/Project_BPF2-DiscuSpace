@@ -40,14 +40,16 @@ export default function Login() {
       } else if (user.status === "nonaktif") {
         setError("Akun Anda sedang diblokir.");
       } else {
-        localStorage.setItem("user", JSON.stringify(user));
-        alert("Login berhasil!");
+
 
         if (user.role === "admin") {
-          navigate("/");
+          localStorage.setItem("loggedInUser", JSON.stringify(user));
+          navigate("/dashboard");
         } else {
+          localStorage.setItem("loggedInUser", JSON.stringify(user));
           navigate("/guest");
         }
+
       }
     } catch (err) {
       console.error("Login error:", err);

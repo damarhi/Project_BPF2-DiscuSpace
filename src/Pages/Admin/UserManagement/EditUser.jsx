@@ -60,7 +60,6 @@ export default function EditUser({ user, onClose, onSave }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (onSave) {
-      // Konversi status: "blokir" -> "nonaktif", "unblokir" -> "aktif"
       const statusConverted = formData.status === "blokir" ? "nonaktif" : "aktif";
       onSave(user.id_user, { ...formData, status: statusConverted });
     }
@@ -84,7 +83,7 @@ export default function EditUser({ user, onClose, onSave }) {
         </h3>
 
         <form onSubmit={handleSubmit} className="grid gap-4">
-          {/* Container 1: Foto Profil */}
+
           <div className="flex justify-center">
             <div className="flex flex-col items-center gap-2">
               <label className="block font-medium text-sm text-gray-700">
@@ -110,9 +109,9 @@ export default function EditUser({ user, onClose, onSave }) {
             </div>
           </div>
 
-          {/* Container 2 & 3: grid dua kolom */}
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Container 2: kiri */}
+
             <div className="space-y-3">
               <div>
                 <label className="block font-medium text-sm mb-1 text-gray-700">Nama</label>
@@ -207,7 +206,7 @@ export default function EditUser({ user, onClose, onSave }) {
             </div>
           </div>
 
-          {/* Tombol aksi */}
+
           <div className="flex justify-end space-x-2 mt-4">
             <button
               type="button"

@@ -79,7 +79,7 @@ export default function Postingan() {
             <Header brandText="Laporan Postingan" title="Postingan yang Dilaporkan" />
             <div className="p-3 bg-[#f4f7fe] min-h-screen">
                 <div className="grid grid-cols-1 lg:grid-cols-10 gap-4">
-                    {/* Container kiri */}
+
                     <div className="lg:col-span-3 w-full rounded-xl bg-white p-4 shadow-sm h-fit">
                         <h2 className="text-lg font-semibold text-gray-800">Preview Postingan</h2>
                         {selectedPostingan ? (
@@ -101,7 +101,6 @@ export default function Postingan() {
                         )}
                     </div>
 
-                    {/* Container kanan */}
                     <div className="lg:col-span-7 w-full rounded-xl bg-white p-4 shadow-sm overflow-auto">
                         {error && <AlertBox type="error">{error}</AlertBox>}
                         {success && <AlertBox type="success">{success}</AlertBox>}

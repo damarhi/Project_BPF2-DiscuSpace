@@ -4,15 +4,18 @@ import { Routes, Route } from "react-router-dom";
 const Dashboard = React.lazy(() => import("./Pages/Admin/Dashboard"))
 const ListUser = React.lazy(() => import("./Pages/Admin/UserManagement/ListUser"))
 const ListPostingan = React.lazy(() => import("./Pages/Admin/PostinganManagement/ListPostingan"))
-const Komentar = React.lazy(() =>import("./Pages/Admin/LaporanManagement/Komentar"))
-const Postingan = React.lazy(() =>import("./Pages/Admin/LaporanManagement/Postingan"))
-const Pengguna = React.lazy(() =>import("./Pages/Admin/LaporanManagement/Pengguna"))
-const Login = React.lazy(()=>import("./Pages/Auth/Login"))
-const Register = React.lazy(()=>import("./Pages/Auth/Register"))
-const Forgot = React.lazy(()=>import("./Pages/Auth/Forgot"))
-const AuthLayout = React.lazy(()=>import("./Layouts/AuthLayout"))
+const Komentar = React.lazy(() => import("./Pages/Admin/LaporanManagement/Komentar"))
+const Postingan = React.lazy(() => import("./Pages/Admin/LaporanManagement/Postingan"))
+const Pengguna = React.lazy(() => import("./Pages/Admin/LaporanManagement/Pengguna"))
+const Login = React.lazy(() => import("./Pages/Auth/Login"))
+const Register = React.lazy(() => import("./Pages/Auth/Register"))
+const Forgot = React.lazy(() => import("./Pages/Auth/Forgot"))
+const Landing = React.lazy(() => import("./Pages/Landing"))
+const AuthLayout = React.lazy(() => import("./Layouts/AuthLayout"))
 const MainLayout = React.lazy(() => import("./Layouts/MainLayout"))
-const Loading = React.lazy(()=> import("./components/Loading")) 
+const LandingLayout = React.lazy(()=>import("./Layouts/LandingLayout"))
+const Loading = React.lazy(() => import("./components/Loading"))
+import PrivateRoute from "./components/Privateroute";
 import "./assets/tailwind.css";
 
 function App() {
@@ -21,21 +24,29 @@ function App() {
 
     <Suspense fallback={<Loading />}>
       <Routes>
-            
-              <Route element={<MainLayout/>}>
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/listuser" element={<ListUser />} />
-                <Route path="/listpostingan" element={<ListPostingan />} />
-                <Route path="/laporan/user" element={<Pengguna />} />
-                <Route path="/laporan/komentar" element={<Komentar />} />
-                <Route path="/laporan/postingan" element={<Postingan />} />              
-              </Route>
-              <Route element={<AuthLayout/>}>
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register/>} />
-                <Route path="/forgot" element={<Forgot/>} />
-              </Route>
-              {/* <Route element={<GuestLayout/>}>
+
+        <Route element={<PrivateRoute />}>
+          <Route element={<MainLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/listuser" element={<ListUser />} />
+            <Route path="/listpostingan" element={<ListPostingan />} />
+            <Route path="/laporan/user" element={<Pengguna />} />
+            <Route path="/laporan/komentar" element={<Komentar />} />
+            <Route path="/laporan/postingan" element={<Postingan />} />
+          </Route>
+        </Route>
+
+        <Route element={<AuthLayout />}>
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot" element={<Forgot />} />
+        </Route>
+
+     <Route element={<LandingLayout />}>
+          <Route path="/landing" element={<Landing />} />
+         
+        </Route>
+        {/* <Route element={<GuestLayout/>}>
                 <Route path="/home" element={<Home />} />               
                 <Route path="/cekproduk" element={<Cekproduk />} />               
               </Route>
@@ -44,9 +55,10 @@ function App() {
                 <Route path="/Error401" element={<Error401 />} />
                 <Route path="/Error403" element={<Error403 />} />
                 <Route path="*" element={<Error404 />} /> */}
-         
-            </Routes>
-    </Suspense>      
- )}
-    
+
+      </Routes>
+    </Suspense>
+  )
+}
+
 export default App;

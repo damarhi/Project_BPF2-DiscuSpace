@@ -62,11 +62,11 @@ export default function Komentar() {
         try {
             setLoading(true);
 
-            // Hapus semua laporan terkait komentar ini
+  
             const toDelete = laporan.filter((l) => l.id_komentar === id_komentar);
             await Promise.all(toDelete.map((l) => laporanAPI.deleteLaporan(l.id_laporan)));
 
-            // Hapus komentar dari tabel komentar
+  
             await komentarAPI.deleteKomentar(id_komentar);
 
             setSuccess("Komentar dan semua laporan berhasil dihapus.");

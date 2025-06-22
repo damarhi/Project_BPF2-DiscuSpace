@@ -69,11 +69,9 @@ export default function Pengguna() {
         try {
             setLoading(true);
 
-            // Hapus semua laporan terkait user
             const toDelete = laporan.filter((lap) => lap.id_terlapor === id_terlapor);
             await Promise.all(toDelete.map((lap) => laporanAPI.deleteLaporan(lap.id_laporan)));
 
-            // Update status user menjadi nonaktif (soft delete)
             await userAPI.updateUser(id_terlapor, { status: "nonaktif" });
 
             setSuccess("Laporan berhasil dihapus dan pengguna dinonaktifkan.");

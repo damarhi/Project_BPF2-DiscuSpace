@@ -10,10 +10,10 @@ export default function Pagination({ data = [], itemsPerPage = 10, render }) {
 
   return (
     <div className="w-full">
-      {/* Render data yang sudah dipotong per halaman */}
+
       {render(currentItems, indexOfFirstItem)}
 
-      {/* Pagination control */}
+
       {totalPages > 1 && (
         <div className="flex justify-center items-center space-x-2 mt-6">
           {Array.from({ length: totalPages }, (_, i) => (

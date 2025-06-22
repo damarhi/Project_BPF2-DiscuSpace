@@ -20,14 +20,14 @@ const getMenuClass = ({ isActive }) =>
 export default function SidebarLinks() {
   const location = useLocation();
 
-  // Cek apakah path sekarang berada di dalam kategori laporan
+
   const isLaporanActive = location.pathname.startsWith("/laporan");
 
   return (
     <div id="sidebar-menu">
       <ul id="menu-list" className="space-y-2">
         <li>
-          <NavLink to="/" className={getMenuClass}>
+          <NavLink to="/dashboard" className={getMenuClass}>
             <MdHome className="h-5 w-5" />
             <p>Main Dashboard</p>
           </NavLink>
@@ -40,7 +40,6 @@ export default function SidebarLinks() {
           </NavLink>
         </li>
 
-        {/* Dropdown Inline */}
         <li className="group relative">
           <div
             className={`my-[3px] flex items-center px-8 gap-4 text-[15px] cursor-pointer relative transition-all duration-200 ${
@@ -53,7 +52,6 @@ export default function SidebarLinks() {
             <p>Laporan Keluhan</p>
           </div>
 
-          {/* Submenu tampil saat hover */}
           <ul className="pl-[58px] mt-1 hidden group-hover:block space-y-1">
             <li>
               <NavLink
@@ -111,7 +109,7 @@ export default function SidebarLinks() {
         </li>
 
         <li>
-          <NavLink to="/auth/sign-in" className={getMenuClass}>
+          <NavLink to="/" className={getMenuClass}>
             <MdLock className="h-5 w-5" />
             <p>Sign In</p>
           </NavLink>
