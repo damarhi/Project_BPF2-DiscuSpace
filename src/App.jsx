@@ -15,7 +15,7 @@ const AuthLayout = React.lazy(() => import("./Layouts/AuthLayout"))
 const MainLayout = React.lazy(() => import("./Layouts/MainLayout"))
 const LandingLayout = React.lazy(()=>import("./Layouts/LandingLayout"))
 const Loading = React.lazy(() => import("./components/Loading"))
-import Privateroute from "./components/Privateroute";
+import Routeprivate from "./components/Routeprivate";
 import "./assets/tailwind.css";
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
     <Suspense fallback={<Loading />}>
       <Routes>
 
-        <Route element={<Privateroute />}>
+        <Route element={<Routeprivate />}>
           <Route element={<MainLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/listuser" element={<ListUser />} />
