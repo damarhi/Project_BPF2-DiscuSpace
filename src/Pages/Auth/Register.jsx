@@ -71,9 +71,9 @@ export default function Register() {
   };
 
   return (
-    <div className="bg-[#1E293B] p-8 rounded-2xl shadow-lg w-full max-w-md">
+    <div className="bg-[#1E293B] p-8 rounded-2xl shadow-lg w-full">
       <h2 className="text-2xl font-semibold text-white mb-6 text-center">
-        Create Your Account ✨
+        Buat Akun Anda ✨
       </h2>
 
       {error && (
@@ -91,101 +91,107 @@ export default function Register() {
       )}
 
       <form onSubmit={handleSubmit}>
-        <div className="mb-5">
-          <label htmlFor="nama" className="block text-sm font-medium text-white mb-1">
-            Full Name
-          </label>
-          <input
-            type="text"
-            id="nama"
-            name="nama"
-            value={dataForm.nama}
-            onChange={handleChange}
-            className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400"
-            placeholder="Enter your fullname"
-            required
-          />
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="mb-3">
+            <label htmlFor="nama" className="block text-sm font-medium text-white mb-1">
+              Nama Lengkap
+            </label>
+            <input
+              type="text"
+              id="nama"
+              name="nama"
+              value={dataForm.nama}
+              onChange={handleChange}
+              className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400"
+              placeholder="Masukkan nama lengkap"
+              required
+            />
+          </div>
 
-        <div className="mb-5">
-          <label htmlFor="username" className="block text-sm font-medium text-white mb-1">
+          <div className="mb-3">
+            <label htmlFor="username" className="block text-sm font-medium text-white mb-1">
             Username
-          </label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={dataForm.username}
-            onChange={handleChange}
-            className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400"
-            placeholder="Enter your username"
-            required
-          />
-        </div>
+            </label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value={dataForm.username}
+              onChange={handleChange}
+              className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400"
+              placeholder="Masukkan username"
+              required
+            />
+          </div>
 
-        <div className="mb-5">
-          <label htmlFor="email" className="block text-sm font-medium text-white mb-1">
-            Email Address
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={dataForm.email}
-            onChange={handleChange}
-            className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400"
-            placeholder="you@example.com"
-            required
-          />
-        </div>
+          <div className="mb-3">
+            <label htmlFor="email" className="block text-sm font-medium text-white mb-1">
+              Alamat Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={dataForm.email}
+              onChange={handleChange}
+              className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400"
+              placeholder="nama@contoh.com"
+              required
+            />
+          </div>
 
-        <div className="mb-5">
-          <label htmlFor="password" className="block text-sm font-medium text-white mb-1">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={dataForm.password}
-            onChange={handleChange}
-            className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400"
-            placeholder="********"
-            required
-          />
-        </div>
+          <div className="mb-3">
+            <label htmlFor="password" className="block text-sm font-medium text-white mb-1">
+              Kata Sandi
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={dataForm.password}
+              onChange={handleChange}
+              className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400"
+              placeholder="********"
+              required
+            />
+          </div>
 
-        <div className="mb-6">
-          <label htmlFor="confirmPassword" className="block text-sm font-medium text-white mb-1">
-            Confirm Password
-          </label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={dataForm.confirmPassword}
-            onChange={handleChange}
-            className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400"
-            placeholder="********"
-            required
-          />
-        </div>
+          <div className="mb-3">
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-white mb-1">
+              Konfirmasi Kata Sandi
+            </label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              value={dataForm.confirmPassword}
+              onChange={handleChange}
+              className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400"
+              placeholder="********"
+              required
+            />
+          </div>
 
-        <button
-          type="submit"
-          className="w-full bg-blue-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-300"
-          disabled={loading}
-        >
-          {loading ? "Registering..." : "Register"}
-        </button>
+          <div className="mb-3">
+            <label className="block text-sm font-medium text-transparent mb-1">.</label>
+            <button
+              type="submit"
+              className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-400 text-white font-semibold rounded-lg transition duration-300"
+              disabled={loading}
+            >
+              {loading ? "Mendaftarkan..." : "Daftar"}
+            </button>
+          </div>
+        </div>
 
         <div className="mt-4 text-center text-sm text-white">
-          Already have an account?{" "}
-          <Link to="/login" className="text-blue-400 hover:underline font-medium">
-            Log in here
+          Sudah punya akun?{" "}
+          <Link to="/" className="text-blue-400 hover:underline font-medium">
+            Masuk di sini
           </Link>
         </div>
       </form>
+
     </div>
   );
 }

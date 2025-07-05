@@ -36,20 +36,17 @@ export default function Login() {
       );
 
       if (!user) {
-        setError("Email atau password salah.");
+        setError("Email atau kata sandi salah.");
       } else if (user.status === "nonaktif") {
         setError("Akun Anda sedang diblokir.");
       } else {
-
+        localStorage.setItem("loggedInUser", JSON.stringify(user));
 
         if (user.role === "admin") {
-          localStorage.setItem("loggedInUser", JSON.stringify(user));
           navigate("/dashboard");
         } else {
-          localStorage.setItem("loggedInUser", JSON.stringify(user));
           navigate("/guest");
         }
-
       }
     } catch (err) {
       console.error("Login error:", err);
@@ -69,14 +66,14 @@ export default function Login() {
   const loadingInfo = loading ? (
     <div className="bg-gray-200 mb-5 p-5 text-sm rounded flex items-center">
       <ImSpinner2 className="me-2 animate-spin" />
-      Mohon Tunggu...
+      Mohon tunggu...
     </div>
   ) : null;
 
   return (
-    <div className="bg-[#1E293B] p-8 rounded-2xl shadow-lg w-full max-w-md">
+    <div className="bg-[#1E293B] p-8 rounded-2xl shadow-lg w-full max-w-xl mx-auto">
       <h2 className="text-2xl font-semibold text-white mb-6 text-center">
-        Welcome Back 👋
+        Selamat Datang Kembali 👋
       </h2>
 
       {errorInfo}
@@ -93,14 +90,14 @@ export default function Login() {
             value={dataForm.email}
             onChange={handleChange}
             className="w-full px-4 py-2 bg-white text-gray-800 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Enter your Email"
+            placeholder="Masukkan email Anda"
             required
           />
         </div>
 
         <div className="mb-6">
           <label className="block text-sm font-semibold text-white mb-2">
-            Password
+            Kata Sandi
           </label>
           <input
             type="password"
@@ -115,18 +112,18 @@ export default function Login() {
 
         <button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-300"
+          className="w-full bg-blue-600 hover:bg-blue-400 text-white font-semibold py-2 px-4 rounded-lg transition duration-300"
           disabled={loading}
         >
-          {loading ? "Logging in..." : "Login"}
+          {loading ? "Sedang masuk..." : "Masuk"}
         </button>
 
         <div className="mt-4 flex justify-between text-sm">
           <Link to="/forgot" className="text-blue-600 hover:underline">
-            Forgot Password?
+            Lupa Kata Sandi?
           </Link>
           <Link to="/register" className="text-blue-600 hover:underline">
-            Register
+            Daftar Akun
           </Link>
         </div>
       </form>

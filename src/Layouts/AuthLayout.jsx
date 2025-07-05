@@ -1,9 +1,10 @@
 import { Outlet } from "react-router-dom";
 
+
 export default function AuthLayout() {
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
+        <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+            <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-2xl h-[90vh]">
                 <div className="flex items-center justify-center mb-6">
                     <h1 className="text-4xl font-poppins font-extrabold text-gray-800">
                         <div className="mt-1 ml-1 text-[30px] font-bold uppercase text-blue-600">
@@ -15,10 +16,11 @@ export default function AuthLayout() {
                 <Outlet />
 
                 <p className="text-center text-sm text-gray-500 mt-6">
-                    © 2025 discuspace Admin Dashboard. All rights
-                    reserved.
+                    © 2025 DiscuSpace Forum. Hak cipta dilindungi.
                 </p>
             </div>
+
         </div>
-    )
+    );
 }
+
