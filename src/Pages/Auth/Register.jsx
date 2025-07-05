@@ -71,7 +71,7 @@ export default function Register() {
   };
 
   return (
-    <div className="bg-[#1E293B] p-8 rounded-2xl shadow-lg w-full">
+    <div className="bg-blue-600 p-8 rounded-2xl shadow-lg w-full">
       <h2 className="text-2xl font-semibold text-white mb-6 text-center">
         Buat Akun Anda ✨
       </h2>
@@ -91,8 +91,8 @@ export default function Register() {
       )}
 
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <div className="mb-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
             <label htmlFor="nama" className="block text-sm font-medium text-white mb-1">
               Nama Lengkap
             </label>
@@ -108,7 +108,7 @@ export default function Register() {
             />
           </div>
 
-          <div className="mb-3">
+          <div>
             <label htmlFor="username" className="block text-sm font-medium text-white mb-1">
             Username
             </label>
@@ -124,7 +124,7 @@ export default function Register() {
             />
           </div>
 
-          <div className="mb-3">
+          <div>
             <label htmlFor="email" className="block text-sm font-medium text-white mb-1">
               Alamat Email
             </label>
@@ -140,7 +140,7 @@ export default function Register() {
             />
           </div>
 
-          <div className="mb-3">
+          <div>
             <label htmlFor="password" className="block text-sm font-medium text-white mb-1">
               Kata Sandi
             </label>
@@ -156,7 +156,7 @@ export default function Register() {
             />
           </div>
 
-          <div className="mb-3">
+          <div>
             <label htmlFor="confirmPassword" className="block text-sm font-medium text-white mb-1">
               Konfirmasi Kata Sandi
             </label>
@@ -172,11 +172,11 @@ export default function Register() {
             />
           </div>
 
-          <div className="mb-3">
+          <div>
             <label className="block text-sm font-medium text-transparent mb-1">.</label>
             <button
               type="submit"
-              className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-400 text-white font-semibold rounded-lg transition duration-300"
+              className="w-full px-4 py-2 bg-green-600 hover:bg-blue-400 text-white font-semibold rounded-lg transition duration-300"
               disabled={loading}
             >
               {loading ? "Mendaftarkan..." : "Daftar"}
@@ -186,7 +186,7 @@ export default function Register() {
 
         <div className="mt-4 text-center text-sm text-white">
           Sudah punya akun?{" "}
-          <Link to="/" className="text-blue-400 hover:underline font-medium">
+          <Link to="/" className="text-white font-medium hover:font-bold">
             Masuk di sini
           </Link>
         </div>

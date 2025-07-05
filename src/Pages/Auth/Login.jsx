@@ -71,8 +71,8 @@ export default function Login() {
   ) : null;
 
   return (
-    <div className="bg-[#1E293B] p-8 rounded-2xl shadow-lg w-full max-w-xl mx-auto">
-      <h2 className="text-2xl font-semibold text-white mb-6 text-center">
+    <div className="bg-blue-600 p-8 rounded-2xl shadow-lg w-full max-w-xl mx-auto">
+      <h2 className="text-2xl font-semibold text-white mb-4 text-center">
         Selamat Datang Kembali 👋
       </h2>
 
@@ -112,17 +112,17 @@ export default function Login() {
 
         <button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-400 text-white font-semibold py-2 px-4 rounded-lg transition duration-300"
+          className="w-full bg-green-600 hover:bg-blue-400 text-white font-semibold py-2 px-4 rounded-lg transition duration-300"
           disabled={loading}
         >
           {loading ? "Sedang masuk..." : "Masuk"}
         </button>
 
         <div className="mt-4 flex justify-between text-sm">
-          <Link to="/forgot" className="text-blue-600 hover:underline">
+          <Link to="/forgot" className="text-white  hover:font-bold">
             Lupa Kata Sandi?
           </Link>
-          <Link to="/register" className="text-blue-600 hover:underline">
+          <Link to="/register" className="text-white  hover:font-bold">
             Daftar Akun
           </Link>
         </div>

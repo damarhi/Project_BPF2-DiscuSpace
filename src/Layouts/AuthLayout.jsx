@@ -1,10 +1,26 @@
 import { Outlet } from "react-router-dom";
-
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 export default function AuthLayout() {
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-            <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-2xl h-[90vh]">
+        <div className="relative min-h-screen w-full overflow-hidden flex items-center justify-center px-4">
+
+            {/* Lottie Background Fullscreen */}
+            <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
+                <DotLottieReact
+                    src="https://lottie.host/db936f3d-65d7-424a-bffc-98999c74ac8f/3RoniSFQqq.lottie"
+                    loop
+                    autoplay
+                    style={{
+                        width: '1600px',
+                        height: '1000px',
+                        objectFit: 'cover',
+                    }}
+                />
+            </div>
+
+            {/* Konten Login/Register (Card) */}
+            <div className="relative z-10 bg-white p-8 rounded-2xl shadow-md w-full max-w-2xl h-[90vh] overflow-y-auto">
                 <div className="flex items-center justify-center mb-6">
                     <h1 className="text-4xl font-poppins font-extrabold text-gray-800">
                         <div className="mt-1 ml-1 text-[30px] font-bold uppercase text-blue-600">
@@ -15,12 +31,10 @@ export default function AuthLayout() {
 
                 <Outlet />
 
-                <p className="text-center text-sm text-gray-500 mt-6">
+                <p className="text-center text-sm text-gray-500 mt-3">
                     © 2025 DiscuSpace Forum. Hak cipta dilindungi.
                 </p>
             </div>
-
         </div>
     );
 }
-
