@@ -72,12 +72,12 @@ export default function Register() {
 
   return (
     <div className="bg-blue-600 p-8 rounded-2xl shadow-lg w-full">
-      <h2 className="text-2xl font-semibold text-white mb-6 text-center">
+      <h2 className="text-2xl font-semibold text-white mb-4 text-center">
         Buat Akun Anda ✨
       </h2>
 
       {error && (
-        <div className="bg-red-200 mb-5 p-5 text-sm font-light text-gray-600 rounded flex items-center">
+        <div className="bg-red-200 mb-4 p-5 text-sm font-light text-gray-600 rounded flex items-center">
           <BsFillExclamationDiamondFill className="text-red-600 me-2 text-lg" />
           {error}
         </div>

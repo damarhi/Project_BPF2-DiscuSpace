@@ -20,7 +20,7 @@ export default function AuthLayout() {
             </div>
 
             {/* Konten Login/Register (Card) */}
-            <div className="relative z-10 bg-white p-8 rounded-2xl shadow-md w-full max-w-2xl h-[90vh] overflow-y-auto">
+            <div className="relative z-10 bg-white p-8 rounded-2xl shadow-md w-full max-w-2xl h-[88vh] overflow-y-auto">
                 <div className="flex items-center justify-center mb-6">
                     <h1 className="text-4xl font-poppins font-extrabold text-gray-800">
                         <div className="mt-1 ml-1 text-[30px] font-bold uppercase text-blue-600">
@@ -31,7 +31,7 @@ export default function AuthLayout() {
 
                 <Outlet />
 
-                <p className="text-center text-sm text-gray-500 mt-3">
+                <p className="text-center text-sm text-gray-500 mt-8">
                     © 2025 DiscuSpace Forum. Hak cipta dilindungi.
                 </p>
             </div>
