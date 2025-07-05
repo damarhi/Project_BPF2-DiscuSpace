@@ -72,7 +72,7 @@ export default function Login() {
 
   return (
     <div className="bg-blue-600 p-8 rounded-2xl shadow-lg w-full max-w-xl mx-auto">
-      <h2 className="text-2xl font-semibold text-white mb-4 text-center">
+      <h2 className="text-2xl font-semibold text-white mb-3 text-center">
         Selamat Datang Kembali 👋
       </h2>
 
