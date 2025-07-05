@@ -31,9 +31,7 @@ export default function AuthLayout() {
 
                 <Outlet />
 
-                <p className="text-center text-sm text-gray-500 mt-8">
-                    © 2025 DiscuSpace Forum. Hak cipta dilindungi.
-                </p>
+              
             </div>
         </div>
     );
