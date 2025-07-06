@@ -19,8 +19,9 @@ export default function Navbar() {
   const loginBtnClass = isAtTop
     ? "bg-white/40 text-white hover:bg-white hover:text-blue-500"
     : "bg-blue-600 text-white hover:bg-blue-700";
-  const brandPrimaryColor = isAtTop ? "text-white" : "text-blue-600";
-  const brandSecondaryColor = isAtTop ? "text-white/70" : "text-blue-400";
+
+  const brandContainerClass = `flex items-center gap-1 px-4 py-1 transition-all duration-300 ${isAtTop
+    ? "bg-white rounded-full shadow-md" : ""}`;
 
   return (
     <div className={`sticky top-0 z-50 navbar px-6 py-4 h-20 transition-all duration-300 ${navbarClass}`}>
@@ -37,6 +38,7 @@ export default function Navbar() {
           </div>
           <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-56 p-3 shadow text-lg text-black">
             <li><a className="font-semibold">Home</a></li>
+            <li><a className="font-semibold">Layanan</a></li>
             <li>
               <a className="font-semibold">Tentang</a>
               <ul className="p-2">
@@ -49,11 +51,17 @@ export default function Navbar() {
           </ul>
         </div>
 
-        {/* Logo & Brand */}
-        <img src="/src/assets/Image/logo.png" alt="/src/assets/Image/logo.png" className="h-12 w-auto object-contain" />
-        <div className={`text-2xl font-bold uppercase ${brandPrimaryColor}`}>
-          Discu <span className={`font-semibold normal-case ${brandSecondaryColor}`}>SPACE</span>
+        <div className={brandContainerClass}>
+          <img
+            src="/src/assets/Image/logo.png"
+            alt="Logo"
+            className="h-10 w-auto object-contain hidden sm:block"
+          />
+          <div className="text-lg sm:text-xl   font-bold uppercase text-blue-600 leading-tight">
+            Discu <span className="font-semibold normal-case text-blue-400">SPACE</span>
+          </div>
         </div>
+
       </div>
 
       {/* KANAN: Menu + Login */}
@@ -61,6 +69,7 @@ export default function Navbar() {
         {/* Menu Desktop */}
         <ul className={`hidden lg:flex menu menu-horizontal text-lg font-semibold ${menuTextColor}`}>
           <li><a>Home</a></li>
+          <li><a>Layanan</a></li>
           <li>
             <details>
               <summary>Tentang</summary>
@@ -74,10 +83,12 @@ export default function Navbar() {
           <li><a>Kontak</a></li>
         </ul>
 
-        {/* Tombol Login */}
-        <a className={`btn btn-md border-0 rounded-md font-semibold text-base ${loginBtnClass}`}>
+        <a
+          className={`hidden sm:inline-block px-4 py-1 text-sm md:text-base font-semibold rounded-md ${loginBtnClass}`}
+        >
           GET STARTED
         </a>
+
       </div>
     </div>
   );

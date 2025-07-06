@@ -7,7 +7,7 @@ export default function LandingLayout() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* SECTION 1: NAVBAR + HERO di latar biru */}
-      <section className="bg-blue-600 text-white">
+      <section className="bg-blue-800 text-white">
         <Navbar />
         <Hero />
       </section>
