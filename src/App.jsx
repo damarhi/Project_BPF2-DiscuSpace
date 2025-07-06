@@ -37,13 +37,13 @@ function App() {
         </Route>
 
         <Route element={<AuthLayout />}>
-          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot" element={<Forgot />} />
         </Route>
 
      <Route element={<LandingLayout />}>
-          <Route path="/landing" element={<Landing />} />
+          <Route path="/" element={<Landing />} />
          
         </Route>
         {/* <Route element={<GuestLayout/>}>

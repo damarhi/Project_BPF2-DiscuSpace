@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../assets/Image/logo.png";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [isAtTop, setIsAtTop] = useState(true);
@@ -83,12 +84,12 @@ export default function Navbar() {
           </li>
           <li><a>Kontak</a></li>
         </ul>
-
-        <a
-          className={`hidden sm:inline-block px-4 py-1 text-sm md:text-base font-semibold rounded-md ${loginBtnClass}`}
-        >
-          GET STARTED
-        </a>
+        <Link
+            to="/login"
+            className={`hidden sm:inline-block px-4 py-1 text-sm md:text-base font-semibold rounded-md ${loginBtnClass}`}
+          >
+            LOGIN
+          </Link>
 
       </div>
     </div>
