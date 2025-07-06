@@ -108,12 +108,12 @@ export default function SidebarLinks() {
           </NavLink>
         </li>
 
-        <li>
+        {/* <li>
           <NavLink to="/login" className={getMenuClass}>
             <MdLock className="h-5 w-5" />
             <p>Sign In</p>
           </NavLink>
-        </li>
+        </li> */}
       </ul>
     </div>
   );
