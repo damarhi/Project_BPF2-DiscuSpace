@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import logo from "../../assets/Image/logo.png";
 
 export default function Navbar() {
   const [isAtTop, setIsAtTop] = useState(true);
@@ -53,7 +54,7 @@ export default function Navbar() {
 
         <div className={brandContainerClass}>
           <img
-            src="/src/assets/Image/logo.png"
+            src={logo}
             alt="Logo"
             className="h-10 w-auto object-contain hidden sm:block"
           />
