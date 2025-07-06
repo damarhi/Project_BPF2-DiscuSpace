@@ -50,7 +50,7 @@ export default function Navbar() {
         </div>
 
         {/* Logo & Brand */}
-        <img src="/src/assets/Image/logo.png" alt="Logo" className="h-12 w-auto object-contain" />
+        <img src="/src/assets/Image/logo.png" alt="/src/assets/Image/logo.png" className="h-12 w-auto object-contain" />
         <div className={`text-2xl font-bold uppercase ${brandPrimaryColor}`}>
           Discu <span className={`font-semibold normal-case ${brandSecondaryColor}`}>SPACE</span>
         </div>
