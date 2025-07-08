@@ -1,12 +1,12 @@
-import { RiFileWarningFill } from "react-icons/ri"; 
-import { FaTelegramPlane } from "react-icons/fa"; 
-import { FaCommentAlt } from "react-icons/fa"; 
-import { AiFillHeart } from "react-icons/ai"; 
+import { RiFileWarningFill } from "react-icons/ri";
+import { FaTelegramPlane } from "react-icons/fa";
+import { FaCommentAlt } from "react-icons/fa";
+import { AiFillHeart } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { IoMdHome } from "react-icons/io";
 import { IoDocuments } from "react-icons/io5";
-import { MdBarChart, MdDashboard, MdPerson  } from "react-icons/md";
+import { MdBarChart, MdDashboard, MdPerson } from "react-icons/md";
 
 import { userAPI } from "../../Services/userAPI";
 import { postinganAPI } from "../../Services/postinganAPI";
@@ -72,7 +72,7 @@ export default function Dashboard() {
 
       setUserStatusData([
         { name: "Aktif", value: aktif },
-        { name: "Nonaktif", value: nonaktif },
+        { name: "Diblokir", value: nonaktif },
       ]);
 
       // Proses pertumbuhan user per hari
@@ -91,6 +91,19 @@ export default function Dashboard() {
 
     fetchData();
   }, []);
+
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-white p-2 border rounded shadow text-sm text-gray-700">
+          <p className="font-semibold">{label}</p>
+          <p>{payload[0].value} Pengguna Bertambah</p>
+        </div>
+      );
+    }
+
+    return null;
+  };
 
   return (
     <div className="mt-4">
@@ -143,7 +156,7 @@ export default function Dashboard() {
               <BarChart data={userGrowthData}>
                 <XAxis dataKey="date" fontSize={10} />
                 <YAxis />
-                <Tooltip />
+                <Tooltip content={<CustomTooltip />} />
                 <Bar dataKey="count" fill="url(#colorUv)" radius={[5, 5, 0, 0]} />
                 <defs>
                   <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">

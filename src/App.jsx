@@ -13,8 +13,10 @@ const Forgot = React.lazy(() => import("./Pages/Auth/Forgot"))
 const Landing = React.lazy(() => import("./Pages/Landing"))
 const AuthLayout = React.lazy(() => import("./Layouts/AuthLayout"))
 const MainLayout = React.lazy(() => import("./Layouts/MainLayout"))
-const LandingLayout = React.lazy(()=>import("./Layouts/LandingLayout"))
+const LandingLayout = React.lazy(() => import("./Layouts/LandingLayout"))
 const Loading = React.lazy(() => import("./components/Loading"))
+const Error403 = React.lazy(() => import("./Pages/Error403"))
+const Error404 = React.lazy(() => import("./Pages/Error404"))
 import Routeprivate from "./components/Routeprivate";
 import "./assets/tailwind.css";
 
@@ -42,19 +44,19 @@ function App() {
           <Route path="/forgot" element={<Forgot />} />
         </Route>
 
-     <Route element={<LandingLayout />}>
+        <Route element={<LandingLayout />}>
           <Route path="/" element={<Landing />} />
-         
+
         </Route>
-        {/* <Route element={<GuestLayout/>}>
-                <Route path="/home" element={<Home />} />               
-                <Route path="/cekproduk" element={<Cekproduk />} />               
-              </Route>
-             
-              <Route path="/Error400" element={<Error400 />} />
-                <Route path="/Error401" element={<Error401 />} />
-                <Route path="/Error403" element={<Error403 />} />
-                <Route path="*" element={<Error404 />} /> */}
+        {/* <Route element={<GuestLayout />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/cekproduk" element={<Cekproduk />} />
+        </Route> */}
+
+        {/* <Route path="/Error400" element={<Error400 />} />
+        <Route path="/Error401" element={<Error401 />} /> */}
+        <Route path="/Error403" element={<Error403 />} />
+        <Route path="*" element={<Error404 />} />
 
       </Routes>
     </Suspense>

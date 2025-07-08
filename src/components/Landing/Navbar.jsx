@@ -15,7 +15,7 @@ export default function Navbar() {
 
   const navbarClass = isAtTop
     ? "bg-transparent"
-    : "bg-white/80 backdrop-blur-md shadow-md";
+    : "bg-white/65 backdrop-blur-md shadow-md";
 
   const menuTextColor = isAtTop ? "text-white" : "text-black";
   const loginBtnClass = isAtTop
@@ -24,6 +24,11 @@ export default function Navbar() {
 
   const brandContainerClass = `flex items-center gap-1 px-4 py-1 transition-all duration-300 ${isAtTop
     ? "bg-white rounded-full shadow-md" : ""}`;
+
+  const menuLinkHoverClass = isAtTop
+    ? "hover:text-gray-300"
+    : "hover:text-blue-600";
+
 
   return (
     <div className={`sticky top-0 z-50 navbar px-6 py-4 h-20 transition-all duration-300 ${navbarClass}`}>
@@ -39,18 +44,12 @@ export default function Navbar() {
             </svg>
           </div>
           <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-56 p-3 shadow text-lg text-black">
-            <li><a className="font-semibold">Home</a></li>
-            <li><a className="font-semibold">Layanan</a></li>
-            <li>
-              <a className="font-semibold">Tentang</a>
-              <ul className="p-2">
-                <li><a>Visi & Misi</a></li>
-                <li><a>Tim Kami</a></li>
-                <li><a>Testimoni</a></li>
-              </ul>
-            </li>
-            <li><a className="font-semibold">Kontak</a></li>
+            <li><a className={`font-semibold ${menuLinkHoverClass}`}>Beranda</a></li>
+            <li><a className={`font-semibold ${menuLinkHoverClass}`}>Tentang Kami</a></li>
+            <li><a className={`font-semibold ${menuLinkHoverClass}`}>Layanan</a></li>
+            <li><a className={`font-semibold ${menuLinkHoverClass}`}>Kontak</a></li>
           </ul>
+
         </div>
 
         <div className={brandContainerClass}>
@@ -69,27 +68,19 @@ export default function Navbar() {
       {/* KANAN: Menu + Login */}
       <div className="navbar-end flex items-center gap-x-6">
         {/* Menu Desktop */}
-        <ul className={`hidden lg:flex menu menu-horizontal text-lg font-semibold ${menuTextColor}`}>
-          <li><a>Home</a></li>
-          <li><a>Layanan</a></li>
-          <li>
-            <details>
-              <summary>Tentang</summary>
-              <ul className="p-2 text-base text-black bg-white shadow-md">
-                <li><a>Visi & Misi</a></li>
-                <li><a>Tim Kami</a></li>
-                <li><a>Testimoni</a></li>
-              </ul>
-            </details>
-          </li>
-          <li><a>Kontak</a></li>
+        <ul className={`hidden lg:flex gap-6 text-lg font-semibold ${menuTextColor}`}>
+          <li><a className={`transition-colors duration-200 ${menuLinkHoverClass}`}>Beranda</a></li>
+          <li><a className={`transition-colors duration-200 ${menuLinkHoverClass}`}>Tentang Kami</a></li>
+          <li><a className={`transition-colors duration-200 ${menuLinkHoverClass}`}>Layanan</a></li>
+          <li><a className={`transition-colors duration-200 ${menuLinkHoverClass}`}>Kontak</a></li>
         </ul>
+
         <Link
-            to="/login"
-            className={`hidden sm:inline-block px-4 py-1 text-sm md:text-base font-semibold rounded-md ${loginBtnClass}`}
-          >
-            LOGIN
-          </Link>
+          to="/login"
+          className={`hidden sm:inline-block px-4 py-1 text-sm md:text-base font-semibold rounded-md ${loginBtnClass}`}
+        >
+          LOGIN
+        </Link>
 
       </div>
     </div>
