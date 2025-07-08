@@ -2,6 +2,8 @@ import React from "react";
 import Navbar from "../components/Landing/Navbar";
 import Footer from "../components/Landing/Footer";
 import Hero from "../components/Landing/Hero";
+import Services from "../components/Landing/Services"
+import Testimoni from "../components/Landing/Testmoni"
 import { Outlet } from "react-router-dom";
 
 export default function LandingLayout() {
@@ -19,7 +21,12 @@ export default function LandingLayout() {
         <div className="container mx-auto px-4 py-8">
           <Outlet />
         </div>
+        <div>
+          <Services />
+          <Testimoni />
+        </div>
         <Footer />
+
       </section>
     </div>
   );
