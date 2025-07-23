@@ -107,6 +107,18 @@ export default function SidebarLinks() {
             <p>Daftar Pengguna</p>
           </NavLink>
         </li>
+        <li>
+          <NavLink to="/testimoni" className={getMenuClass}>
+            <MdPerson className="h-5 w-5" />
+            <p>Testimoni</p>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/faq" className={getMenuClass}>
+            <MdPerson className="h-5 w-5" />
+            <p>FAQ</p>
+          </NavLink>
+        </li>
 
         {/* <li>
           <NavLink to="/login" className={getMenuClass}>

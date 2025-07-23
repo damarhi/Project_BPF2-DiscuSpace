@@ -1,12 +1,10 @@
 import { RiFileWarningFill } from "react-icons/ri";
-import { FaTelegramPlane } from "react-icons/fa";
-import { FaCommentAlt } from "react-icons/fa";
+import { FaTelegramPlane, FaCommentAlt } from "react-icons/fa";
 import { AiFillHeart } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import { IoMdHome } from "react-icons/io";
 import { IoDocuments } from "react-icons/io5";
-import { MdBarChart, MdDashboard, MdPerson } from "react-icons/md";
+import { MdPerson } from "react-icons/md";
 
 import { userAPI } from "../../Services/userAPI";
 import { postinganAPI } from "../../Services/postinganAPI";
@@ -14,6 +12,7 @@ import { komentarAPI } from "../../Services/komentarAPI";
 import { likeAPI } from "../../Services/likeAPI";
 import { dibagikanAPI } from "../../Services/dibagikanAPI";
 import { laporanAPI } from "../../Services/laporanAPI";
+import { testimoniAPI } from "../../Services/testimoniAPI";
 
 import Widget from "../../components/admin/Widget";
 import Header from "../../components/admin/Header";
@@ -45,18 +44,27 @@ export default function Dashboard() {
 
   const [userStatusData, setUserStatusData] = useState([]);
   const [userGrowthData, setUserGrowthData] = useState([]);
+  const [ratingData, setRatingData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const [user, postingan, komentar, like, dibagikan, laporan] =
-        await Promise.all([
-          userAPI.fetchUser(),
-          postinganAPI.fetchPostingan(),
-          komentarAPI.fetchKomentar(),
-          likeAPI.fetchLike(),
-          dibagikanAPI.fetchDibagikan(),
-          laporanAPI.fetchLaporan(),
-        ]);
+      const [
+        user,
+        postingan,
+        komentar,
+        like,
+        dibagikan,
+        laporan,
+        testimoni,
+      ] = await Promise.all([
+        userAPI.fetchUser(),
+        postinganAPI.fetchPostingan(),
+        komentarAPI.fetchKomentar(),
+        likeAPI.fetchLike(),
+        dibagikanAPI.fetchDibagikan(),
+        laporanAPI.fetchLaporan(),
+        testimoniAPI.fetchTestimoni(),
+      ]);
 
       const aktif = user.filter((u) => u.status === "aktif").length;
       const nonaktif = user.filter((u) => u.status === "nonaktif").length;
@@ -75,10 +83,9 @@ export default function Dashboard() {
         { name: "Diblokir", value: nonaktif },
       ]);
 
-      // Proses pertumbuhan user per hari
       const userGrowth = {};
       user.forEach((u) => {
-        const date = new Date(u.created_at).toLocaleDateString("en-CA"); // Format YYYY-MM-DD
+        const date = new Date(u.created_at).toLocaleDateString("en-CA");
         userGrowth[date] = (userGrowth[date] || 0) + 1;
       });
 
@@ -87,6 +94,13 @@ export default function Dashboard() {
         .sort((a, b) => new Date(a.date) - new Date(b.date));
 
       setUserGrowthData(userGrowthArray);
+
+      const ratingCount = [1, 2, 3, 4, 5].map((r) => ({
+        rating: `${r} ★`,
+        count: testimoni.filter((t) => t.rating === r).length,
+      }));
+
+      setRatingData(ratingCount);
     };
 
     fetchData();
@@ -101,7 +115,6 @@ export default function Dashboard() {
         </div>
       );
     }
-
     return null;
   };
 
@@ -138,8 +151,8 @@ export default function Dashboard() {
                   dataKey="value"
                   label
                 >
-                  <Cell fill="#2563EB" /> {/* Aktif - Biru Tua */}
-                  <Cell fill="#60A5FA" /> {/* Nonaktif - Biru Muda */}
+                  <Cell fill="#2563EB" />
+                  <Cell fill="#60A5FA" />
                 </Pie>
                 <Tooltip />
                 <Legend />
@@ -147,7 +160,7 @@ export default function Dashboard() {
             </ResponsiveContainer>
           </div>
 
-          {/* Bar Chart */}
+          {/* Bar Chart: User Growth */}
           <div className="bg-white rounded-xl shadow p-4">
             <h3 className="text-gray-700 font-semibold text-sm mb-4">
               Pertumbuhan Pengguna Harian
@@ -166,6 +179,36 @@ export default function Dashboard() {
                 </defs>
               </BarChart>
             </ResponsiveContainer>
+          </div>
+
+          {/* Rating Section */}
+          <div className="bg-white rounded-xl shadow p-4 md:col-span-2">
+            <h3 className="text-gray-700 font-semibold text-sm mb-4">
+              Jumlah Testimoni Berdasarkan Rating
+            </h3>
+            <div className="space-y-4">
+              {ratingData.map((item, index) => {
+                const maxCount = Math.max(...ratingData.map((r) => r.count)) || 1;
+                const percentage = (item.count / maxCount) * 100;
+
+                return (
+                  <div key={index} className="flex items-center justify-between">
+                    <div className="flex items-center w-20 font-semibold text-blue-500 text-lg">
+                      {item.rating}
+                    </div>
+                    <div className="flex-1 ml-4 bg-gray-200 rounded-full h-6 relative">
+                      <div
+                        className="bg-blue-400 h-6 rounded-full"
+                        style={{ width: `${percentage}%` }}
+                      ></div>
+                      <span className="absolute right-2 top-[2px] text-sm font-semibold text-gray-700">
+                        {item.count}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

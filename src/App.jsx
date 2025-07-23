@@ -7,6 +7,8 @@ const ListPostingan = React.lazy(() => import("./Pages/Admin/PostinganManagement
 const Komentar = React.lazy(() => import("./Pages/Admin/LaporanManagement/Komentar"))
 const Postingan = React.lazy(() => import("./Pages/Admin/LaporanManagement/Postingan"))
 const Pengguna = React.lazy(() => import("./Pages/Admin/LaporanManagement/Pengguna"))
+const Testimoni = React.lazy(() => import("./Pages/Admin/TestimoniManagement/Testimoni"))
+const ListFAQ = React.lazy(() => import("./Pages/Admin/FAQ/ListFAQ"))
 const Login = React.lazy(() => import("./Pages/Auth/Login"))
 const Register = React.lazy(() => import("./Pages/Auth/Register"))
 const Forgot = React.lazy(() => import("./Pages/Auth/Forgot"))
@@ -35,6 +37,8 @@ function App() {
             <Route path="/laporan/user" element={<Pengguna />} />
             <Route path="/laporan/komentar" element={<Komentar />} />
             <Route path="/laporan/postingan" element={<Postingan />} />
+            <Route path="/testimoni" element={<Testimoni />} />
+            <Route path="/faq" element={<ListFAQ />} />
           </Route>
         </Route>
 

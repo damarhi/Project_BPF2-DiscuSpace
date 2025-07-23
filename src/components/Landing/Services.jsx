@@ -19,7 +19,11 @@ export default function Services() {
         <section id="services" className="w-screen bg-gray-100 py-16">
             <div className="container px-4 mx-auto">
                 <div className="scroll-revealed text-center max-w-[550px] mx-auto mb-12" data-aos="fade-up">
-                    <h6 className="mb-2 block text-lg font-semibold text-blue-600">Layanan</h6>
+                    {/* Tambahkan ikon sebelum teks Layanan */}
+                    <div className="flex justify-center items-center gap-2 mb-2 text-blue-600">
+                        <FaCogs className="text-2xl" />
+                        <h6 className="block text-lg font-semibold">Layanan</h6>
+                    </div>
                     <h2 className="mb-6 text-3xl font-bold text-gray-800">Fitur Unggulan Kami</h2>
                     <p className="text-gray-600">
                         DiscuSpace menghadirkan fitur-fitur terbaik untuk membangun komunitas diskusi yang aktif, aman, dan mudah dikelola.
@@ -128,7 +132,6 @@ export default function Services() {
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
