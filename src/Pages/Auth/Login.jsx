@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { BsFillExclamationDiamondFill } from "react-icons/bs";
 import { ImSpinner2 } from "react-icons/im";
 import { userAPI } from "../../Services/userAPI";
+
 
 export default function Login() {
   const navigate = useNavigate();
@@ -13,6 +14,18 @@ export default function Login() {
     password: "",
   });
 
+
+  const [loggedUser, setLoggedUser] = useState(null);
+useEffect(() => {
+  const storedUser = localStorage.getItem("loggedInUser");
+  if (storedUser) {
+    setLoggedUser(JSON.parse(storedUser));
+  }
+}, []);
+
+
+
+
   const handleChange = (evt) => {
     const { name, value } = evt.target;
     setDataForm({
@@ -21,13 +34,16 @@ export default function Login() {
     });
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
 
+
     try {
       const users = await userAPI.fetchUser();
+
 
       const user = users.find(
         (u) =>
@@ -35,17 +51,20 @@ export default function Login() {
           u.password === dataForm.password
       );
 
+
       if (!user) {
         setError("Email atau kata sandi salah.");
       } else if (user.status === "nonaktif") {
         setError("Akun Anda sedang diblokir.");
       } else {
         localStorage.setItem("loggedInUser", JSON.stringify(user));
-
+        setLoggedUser(user);
         if (user.role === "admin") {
           navigate("/dashboard");
         } else {
-          navigate("/guest");
+          navigate("/home");
+
+
         }
       }
     } catch (err) {
@@ -56,12 +75,14 @@ export default function Login() {
     }
   };
 
+
   const errorInfo = error ? (
     <div className="bg-red-200 mb-5 p-5 text-sm font-light text-gray-600 rounded flex items-center">
       <BsFillExclamationDiamondFill className="text-red-600 me-2 text-lg" />
       {error}
     </div>
   ) : null;
+
 
   const loadingInfo = loading ? (
     <div className="bg-gray-200 mb-5 p-5 text-sm rounded flex items-center">
@@ -70,14 +91,17 @@ export default function Login() {
     </div>
   ) : null;
 
+
   return (
     <div className="bg-blue-600 p-8 rounded-2xl shadow-lg w-full max-w-xl mx-auto">
       <h2 className="text-2xl font-semibold text-white mb-3 text-center">
         Selamat Datang Kembali 👋
       </h2>
 
+
       {errorInfo}
       {loadingInfo}
+
 
       <form onSubmit={handleSubmit}>
         <div className="mb-6">
@@ -95,6 +119,7 @@ export default function Login() {
           />
         </div>
 
+
         <div className="mb-6">
           <label className="block text-sm font-semibold text-white mb-2">
             Kata Sandi
@@ -110,6 +135,7 @@ export default function Login() {
           />
         </div>
 
+
         <button
           type="submit"
           className="w-full bg-green-600 hover:bg-blue-400 text-white font-semibold py-2 px-4 rounded-lg transition duration-300"
@@ -117,6 +143,7 @@ export default function Login() {
         >
           {loading ? "Sedang masuk..." : "Masuk"}
         </button>
+
 
         <div className="mt-4 flex justify-between text-sm">
           <Link to="/forgot" className="text-white  hover:font-bold">
@@ -130,3 +157,6 @@ export default function Login() {
     </div>
   );
 }
+
+
+

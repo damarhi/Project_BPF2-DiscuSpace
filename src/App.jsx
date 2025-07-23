@@ -21,6 +21,11 @@ const Error403 = React.lazy(() => import("./Pages/Error403"))
 const Error404 = React.lazy(() => import("./Pages/Error404"))
 import Routeprivate from "./components/Routeprivate";
 import "./assets/tailwind.css";
+import GuestLayout from "./Layouts/GuestLayout";
+const UserProfile = React.lazy(() => import("./Pages/Guest/Profile/UserProfile"));
+const PostDetail = React.lazy(() => import("./Pages/Guest/Profile/PostDetail"));
+const HomeGuest = React.lazy(() => import("./Pages/Guest/Home/home"));
+
 
 function App() {
   return (
@@ -52,6 +57,15 @@ function App() {
           <Route path="/" element={<Landing />} />
 
         </Route>
+
+        {/* Guest Pages */}
+          <Route element={<GuestLayout />}>
+          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/post/:id" element={<PostDetail />} />
+          <Route path="/home" element={<HomeGuest />} />
+        </Route>
+
+
         {/* <Route element={<GuestLayout />}>
           <Route path="/home" element={<Home />} />
           <Route path="/cekproduk" element={<Cekproduk />} />
