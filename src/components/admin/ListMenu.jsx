@@ -7,6 +7,8 @@ import {
   MdError,
   MdPerson,
   MdLock,
+  MdRateReview,
+  MdHelpOutline,
 } from "react-icons/md";
 
 // Fungsi class utama untuk NavLink
@@ -19,7 +21,6 @@ const getMenuClass = ({ isActive }) =>
 
 export default function SidebarLinks() {
   const location = useLocation();
-
 
   const isLaporanActive = location.pathname.startsWith("/laporan");
 
@@ -107,15 +108,16 @@ export default function SidebarLinks() {
             <p>Daftar Pengguna</p>
           </NavLink>
         </li>
+        
         <li>
           <NavLink to="/testimoni" className={getMenuClass}>
-            <MdPerson className="h-5 w-5" />
+            <MdRateReview className="h-5 w-5" />
             <p>Testimoni</p>
           </NavLink>
         </li>
         <li>
           <NavLink to="/faq" className={getMenuClass}>
-            <MdPerson className="h-5 w-5" />
+            <MdHelpOutline className="h-5 w-5" />
             <p>FAQ</p>
           </NavLink>
         </li>
